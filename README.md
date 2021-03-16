@@ -20,6 +20,8 @@ devtools::install_github("LindaNab/simexvsmecor", ref = "main")
 
 ``` r
 library(simexvsmecor)
+# view input data
+data(input)
 # run scenenario no. 1 of the simulation study with 100 replicates
 run_sim(nrep = 100, scen_no = 1)
 ```
