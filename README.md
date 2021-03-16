@@ -1,14 +1,15 @@
+The simexvsmecor Package
+========================
 
-# The simexvsmecor Package
+This package for R entails the code to execute a simulation study and
+the code used to analyse the output of the simulation study,
+accompanying the manuscript “Random measurement error correction in an
+exposure by means of simulation-extrapolation and regression
+calibration”. The aim of the simulation study is the comparison between
+the simex and mecor package for measurement error correction.
 
-This package for R entails the simulation code to execute the simulation
-study and the analysis code used to produce the results from the
-simulation study, accompanying the manuscript “Random measurement error
-correction in an exposure by means of simulation-extrapolation and
-regression calibration”. The simulation study is set up to compare the
-simex and mecor package for measurement error correction.
-
-# Installation
+Installation
+============
 
 The package can be installed via
 
@@ -16,7 +17,8 @@ The package can be installed via
 devtools::install_github("LindaNab/simexvsmecor", ref = "main")
 ```
 
-# Quick demo
+Quick demo
+==========
 
 ``` r
 library(simexvsmecor)
