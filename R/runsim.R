@@ -7,6 +7,7 @@
 #' output_file_loc, which constitutes of the uncorrected effect, the corrected
 #' effect by means of mecor and the corrected effect by means of simex and the
 #' seed no.
+#' @export
 run_sim <- function(nrep,
                     scen_no,
                     output_file_loc = "./"){
