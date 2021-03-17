@@ -11,7 +11,7 @@
 scenario=${SLURM_ARRAY_TASK_ID}
 ​
 # Load module
-module load statistical/R/3.6.2/gcc.8.3.1.lua
+module load statistical/R/4.0.2/gcc.8.3.1
 ​
 # The below is how to batch
 Rscript simexvsmecor_slurmscript.R 100 $scenario ./
