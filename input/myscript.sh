@@ -1,14 +1,17 @@
 #!/bin/bash
 
-#SBATCH --job-name=HelloWorld           # Job name
-#SBATCH --output=slurm.out              # Output file name
-#SBATCH --error=slurm.err               # Error file name
-#SBATCH --partition=short               # Partition
-#SBATCH --time=00:05:00                 # Time limit
+#SBATCH --job-name=simexvsmecor          # Job name
+#SBATCH --output=/exports/clinicalepi/Linda/simexvsmecor/job%A_scen%a.out              # Output file name
+#SBATCH --error=/exports/clinicalepi/Linda/simexvsmecor/job%A_scen%a.err               # Error file name
+#SBATCH --time=03:45:00                 # Time limit
 #SBATCH --nodes=1                       # Number of nodes
 #SBATCH --ntasks-per-node=1             # MPI processes per node
+#SBATCH --array=1-14
+
+# Read in scenario number
+scenario=${SLURM_ARRAY_TASK_ID} 
 
 module purge
 module add statistical/R/4.0.2/gcc.8.3.1
 
-Rscript --vanilla simexvsmecor_slurmscript.R
+Rscript --vanilla ./input/simexvsmecor_slurmscript.R 5000 $scenario "./output/"
