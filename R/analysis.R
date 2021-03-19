@@ -47,7 +47,7 @@ perform_simex <- function(data){
                     var))
   simex_fit <- simex::simex(naive_fit,
                             "X_star_1",
-                            measurement.error = var)
+                            measurement.error = sqrt(var))
   effect <- simex_fit$coefficients[2]
   se <- sqrt(simex_fit$variance.jackknife[2, 2])
   ci <- effect + c(qnorm(0.025), qnorm(0.975)) * se
