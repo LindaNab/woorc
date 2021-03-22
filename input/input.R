@@ -1,30 +1,45 @@
+#############################################################
+## INPUT SCRIPTS USED FOR THE R PACKAGE SIMEXVSMECOR
+##
+## This script creates the data.frame that is available via data(input)
+## lindanab4@gmail.com - 20210322
+#############################################################
+
+##############################
+# 0 - Load librairies --------
+##############################
+
+##############################
+# 1 - Create data.frame input-
+##############################
 input <- data.frame(matrix(nrow = 18, ncol = 11))
 colnames(input) <- c("scen_no",
-                     "nobs",
-                     "gamma",
-                     "omega_sq",
-                     "tau_sq",
-                     "sigma_sq",
-                     "beta",
-                     "reliability",
-                     "r_squared",
-                     "attenuation",
-                     "confounding")
+                     "nobs", # input param generate_data()
+                     "gamma", # input param generate_data()
+                     "omega_sq", # input param generate_data()
+                     "tau_sq", # input param generate_data()
+                     "sigma_sq", # input param generate_data()
+                     "beta", # input param generate_data()
+                     "reliability", # calculated from param
+                     "r_squared", # calculated from param
+                     "attenuation", # calculated from param
+                     "confounding") # calculated from param
 input$scen_no <- 1:NROW(input)
 # base setting
 input[1, 2:7] <- c(500, 0, 50, 30, 100, 0.2)
 # reliability setting
-# less reliable
+# less reliable (increasing tau_sq)
 input[2, 2:7] <- c(500, 0, 50, 200, 100, 0.2)
 input[3, 2:7] <- c(500, 0, 50, 100, 100, 0.2)
 input[4, 2:7] <- c(500, 0, 50, 50, 100, 0.2)
-# more reliable
+# more reliable (decreasing tau_sq)
 input[5, 2:7] <- c(500, 0, 50, 25, 100, 0.2)
 input[6, 2:7] <- c(500, 0, 50, 20, 100, 0.2)
 input[7, 2:7] <- c(500, 0, 50, 15, 100, 0.2)
 input[8, 2:7] <- c(500, 0, 50, 10, 100, 0.2)
 input[9, 2:7] <- c(500, 0, 50, 5, 100, 0.2)
 # r-squared setting
+# increasing r-squared outcome model (decreasing res errors sigma_sq)
 input[10, 2:7] <- c(500, 0, 50, 30, 20, 0.2)
 input[11, 2:7] <- c(500, 0, 50, 30, 5, 0.2)
 input[12, 2:7] <- c(500, 0, 50, 30, 1, 0.2)
@@ -33,6 +48,7 @@ input[13, 2:7] <- c(125, 0, 50, 30, 100, 0.2)
 input[14, 2:7] <- c(250, 0, 50, 30, 100, 0.2)
 input[15, 2:7] <- c(1000, 0, 50, 30, 100, 0.2)
 # confounding
+# changing gamma
 input[15, 2:7] <- c(500, 1, 50, 30, 100, 0.2)
 input[16, 2:7] <- c(500, 4, 50, 30, 100, 0.2)
 input[17, 2:7] <- c(500, 8, 50, 30, 100, 0.2)
@@ -72,6 +88,7 @@ calc_confounding <- function(gamma,
   # output times 0.2 (correct effect) is equal to the crude effect
   return(crude)
 }
+# add to input data.frame
 input$reliability <-
   do.call(calc_reliability,
           args = list(gamma = input$gamma,
@@ -94,4 +111,9 @@ input$confounding <-
   do.call(calc_confounding,
           args = list(gamma = input$gamma,
                       omega_sq = input$omega_sq))
+
+
+##############################
+# 2 - Add input to package ---
+##############################
 usethis::use_data(input, overwrite = TRUE)
