@@ -7,3 +7,6 @@ arg3 <- args[3]
 system.time(run_sim(arg1, arg2, arg3))
 # run_sim(2, 1)
 # print(paste0("arg1: ", arg1, ", arg2: ", arg2, ", arg3: ", arg3))
+# for (i in 1:18){
+#   run_sim(1, i)
+# }

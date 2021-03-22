@@ -16,8 +16,8 @@ run_sim(nrep, scen_no, output_file_loc = "./")
 \value{
 a file named scen_no_* with the output will be saved in
 output_file_loc, which constitutes of the uncorrected effect, the corrected
-effect by means of mecor and the corrected effect by means of simex and the
-seed no.
+effect by means of mecor and the corrected effect by means of simex, the
+estimated R-squared of the outcome model and the seed no.
 }
 \description{
 Run simulation study

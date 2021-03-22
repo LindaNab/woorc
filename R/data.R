@@ -15,6 +15,7 @@
 #'   \item{omega_sq}{\eqn{\omega^2}}
 #'   \item{tau_sq}{\eqn{\tau^2}}
 #'   \item{sigma_sq}{\eqn{\sigma^2}}
+#'   \item{beta}{estimand}
 #'   \item{reliability}{Var(blood_pressure) / Var(blood_pressure_star)}
 #'   \item{r_squared}{1 - Var(creatinine|blood_pressure, age) / Var(creatinine)}
 #'   \item{attenuation}{Var(blood_pressure|age) / Var(blood_pressure_star|age)}
@@ -36,6 +37,7 @@
 #'   \item{omega_sq}{\eqn{\omega^2}}
 #'   \item{tau_sq}{\eqn{\tau^2}}
 #'   \item{sigma_sq}{\eqn{\sigma^2}}
+#'   \item{beta}{estimand}
 #'   \item{reliability}{Var(blood_pressure) / Var(blood_pressure_star)}
 #'   \item{r_squared}{1 - Var(creatinine|blood_pressure, age) / Var(creatinine)}
 #'   \item{attenuation}{Var(blood_pressure|age) / Var(blood_pressure_star|age)}

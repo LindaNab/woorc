@@ -10,7 +10,11 @@ perform_uncor <- function(data){
   se <- summary(uncor_fit)$coefficients[2, 2]
   ci <- confint(uncor_fit)[2, ]
   names(ci) <- c("lower", "upper")
-  return(c(effect = unname(effect), se = se, ci = ci))
+  return(c(
+    effect = unname(effect),
+    se = se,
+    ci = ci
+  ))
 }
 #' Perform measurement error correction by means of mecor
 #'
@@ -30,7 +34,11 @@ perform_mecor <- function(data){
   se <- summary(mecor_fit)$c$coefficients[2, 2]
   ci <-  summary(mecor_fit)$c$ci[2, 4:5]
   names(ci) <- c("lower", "upper")
-  return(c(effect = unname(effect), se = se, ci = ci))
+  return(c(
+    effect = unname(effect),
+    se = se,
+    ci = ci
+  ))
 }
 #' Perform measurement error correction by means of simex
 #'
@@ -52,7 +60,11 @@ perform_simex <- function(data){
   se <- sqrt(simex_fit$variance.jackknife[2, 2])
   ci <- effect + c(qnorm(0.025), qnorm(0.975)) * se
   names(ci) <- c("lower", "upper")
-  return(c(effect = unname(effect), se = se, ci = ci))
+  return(c(
+    effect = unname(effect),
+    se = se,
+    ci = ci
+  ))
 }
 #' Get the estimated effect of the three different analyses
 #'
@@ -69,4 +81,13 @@ get_est_effects <- function(data){
                mecor = effect_mecor,
                simex = effect_simex)
   return(effects)
+}
+#' Get R-squared of the outcome model (Y ~ X + Z)
+#'
+#' @param data data used to estimate R-squared
+#' @return named vector with r_squared, the r squared of the outcome model
+get_r_squared <- function(data){
+  cor_fit <- lm(Y ~ X + Z,
+                data = data)
+  r_squared <- summary(cor_fit)$r.squared
 }

@@ -65,7 +65,8 @@ summarise_one_scen_no <- function(summary,
                             se = "se",
                             methodvar = "method",
                             ci.limits = c("ci.lower", "ci.upper"),
-                            ref = "uncor")
+                            ref = "uncor",
+                            x = TRUE)
   # stats contains the params that will be pulled from the simsum object
   stats <- eval_param_rsimsum()[- grep("_mcse", eval_param_rsimsum())]
   methods <- c("uncor", "mecor", "simex")

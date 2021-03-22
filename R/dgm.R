@@ -12,14 +12,15 @@ generate_data <- function(seed_no,
                           gamma,
                           omega_sq, # omega^2
                           tau_sq, # tau^2
-                          sigma_sq){ # sigma^2
+                          sigma_sq, # sigma^2
+                          beta = 0.2){
   set.seed(seed_no)
   Z <- rnorm(nobs, 32, sqrt(25))
   X <- 120 + gamma * Z + rnorm(nobs, 0, sqrt(omega_sq))
   X_star_1 <- X + rnorm(nobs, 0, sqrt(tau_sq))
   X_star_2 <- X + rnorm(nobs, 0, sqrt(tau_sq))
   X_star_3 <- X + rnorm(nobs, 0, sqrt(tau_sq))
-  Y <- 30 + 0.2 * X + 0.2 * Z + rnorm(nobs, 0, sqrt(sigma_sq))
+  Y <- 30 + beta * X + 0.2 * Z + rnorm(nobs, 0, sqrt(sigma_sq))
   df <- cbind.data.frame(Z, X, X_star_1, X_star_2, X_star_3, Y)
   return(df)
 }

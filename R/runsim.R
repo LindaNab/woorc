@@ -5,8 +5,8 @@
 #' @param output_file_loc directory where output of simulation will be saved
 #' @return a file named scen_no_* with the output will be saved in
 #' output_file_loc, which constitutes of the uncorrected effect, the corrected
-#' effect by means of mecor and the corrected effect by means of simex and the
-#' seed no.
+#' effect by means of mecor and the corrected effect by means of simex, the
+#' estimated R-squared of the outcome model and the seed no.
 #' @export
 run_sim <- function(nrep,
                     scen_no,
@@ -19,7 +19,11 @@ run_sim <- function(nrep,
       data <- generate_data_scen_no(seed_no,
                                     scen_no)
       effects <- get_est_effects(data)
-      output <- c(effects, seed_no = seed_no)
-      save_output(output, output_file)
+      r_squared <- get_r_squared(data)
+      output <- c(effects,
+                  r_squared = r_squared,
+                  seed_no = seed_no)
+      save_output(output,
+                  output_file)
     }
 }

@@ -4,7 +4,7 @@
 \alias{generate_data}
 \title{Generate data for simulation study}
 \usage{
-generate_data(seed_no, nobs, gamma, omega_sq, tau_sq, sigma_sq)
+generate_data(seed_no, nobs, gamma, omega_sq, tau_sq, sigma_sq, beta = 0.2)
 }
 \arguments{
 \item{seed_no}{No. of seed}
