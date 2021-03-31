@@ -57,7 +57,7 @@ summarise_sim <- function(scen_nos,
   for (i in seq_along(scen_nos)){
     summary <- summarise_one_scen_no(summary, scen_nos[i])
   }
-  summary$perc_bias <- (summary$bias / 0.2) * 100
+  summary$perc_bias <- (summary$bias / summary$beta) * 100
   return(summary)
 }
 #' Summarise one scenario no.

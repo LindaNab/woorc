@@ -20,6 +20,18 @@ A data frame with 42 rows and 24 variables:
   \item{confounding}{0.2 E[age|blood_pressure]}
   \item{bias}{bias}
   \item{bias_mcse}{monte carlo standard error of the bias}
+  \item{mse}{mean squared error}
+  \item{mse_mcse}{monte carlo standard error of the mean squared error}
+  \item{cover}{coverage}
+  \item{cover_mcse}{monte carlo standard error of the coverage}
+  \item{modelse}{model based standard error}
+  \item{modelse_mcse}{monte carlo standard error of the model based standard error}
+  \item{empse}{empirical standard error}
+  \item{empse_mcse}{monte carlo standard error of the empirical standard error}
+  \item{nsim}{number of replications}
+  \item{nsim_mcse}{monte carlo standard error of the number of replications (NA)}
+  \item{r_sqaured_est}{estimated R-squared of Y ~ X + Z}
+  \item{perc_bias}{percentage bias}
 }
 }
 \usage{

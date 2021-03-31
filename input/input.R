@@ -65,9 +65,13 @@ calc_reliability <- function(gamma,
 # r_squared is equal to 1 - var(Y|X,Z) / var(Y)
 calc_r_squared <- function(sigma_sq,
                            beta,
+                           gamma,
                            omega_sq){
   r_squared <-
-    1 - sigma_sq / (beta ^ 2 * omega_sq + 0.2 ^ 2 * 25 + sigma_sq)
+    1 - sigma_sq / (beta ^ 2 * (gamma ^ 2 * 25 + omega_sq) +
+                      0.2 ^ 2 * 25 +
+                      # beta * 0.2 * cov(X,Z) +
+                      sigma_sq)
   return(r_squared)
 }
 # attenuation is equal to var(X|Z) / var(X_star|Z)
@@ -98,6 +102,7 @@ input$r_squared <-
   do.call(calc_r_squared,
           args = list(sigma_sq = input$sigma_sq,
                       beta = input$beta,
+                      gamma = input$gamma,
                       omega_sq = input$omega_sq))
 # the effect that one will find when regressing Y ~ X_star + Z is 0.2 (the
 # correct effect) times the number in the column "attenuation"
