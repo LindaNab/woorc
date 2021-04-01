@@ -12,7 +12,7 @@
 ##############################
 # 1 - Create data.frame input-
 ##############################
-input <- data.frame(matrix(nrow = 18, ncol = 11))
+input <- data.frame(matrix(nrow = 19, ncol = 11))
 colnames(input) <- c("scen_no",
                      "nobs", # input param generate_data()
                      "gamma", # input param generate_data()
@@ -49,11 +49,11 @@ input[14, 2:7] <- c(250, 0, 50, 30, 100, 0.2)
 input[15, 2:7] <- c(1000, 0, 50, 30, 100, 0.2)
 # confounding
 # changing gamma
-input[15, 2:7] <- c(500, 1, 50, 30, 100, 0.2)
-input[16, 2:7] <- c(500, 4, 50, 30, 100, 0.2)
-input[17, 2:7] <- c(500, 8, 50, 30, 100, 0.2)
+input[16, 2:7] <- c(500, 1, 50, 30, 100, 0.2)
+input[17, 2:7] <- c(500, 4, 50, 30, 100, 0.2)
+input[18, 2:7] <- c(500, 8, 50, 30, 100, 0.2)
 # null-effect
-input[18, 2:7] <- c(500, 0, 50, 30, 100, 0)
+input[19, 2:7] <- c(500, 0, 50, 30, 100, 0)
 # reliability is equal to the var(X) / var(X_star)
 calc_reliability <- function(gamma,
                              omega_sq,
