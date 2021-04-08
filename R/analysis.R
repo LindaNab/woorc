@@ -23,9 +23,12 @@ perform_uncor <- function(data){
 #' standard error of the estimated coefficient and the confidence interval based
 #' on the bootstrap
 perform_mecor <- function(data){
+  cols_no_reps <- grep("X_star", colnames(data))[-1] # columns with replicates
+  print(cols_no_reps)
+  use_replicate <- as.matrix(data[, cols_no_reps])
   mecor_fit <- mecor::mecor(
     Y ~ mecor::MeasError(X_star_1,
-                         replicate = cbind(X_star_2, X_star_3)) + Z,
+                         replicate = use_replicate) + Z,
     data = data,
     method = "standard",
     B = 999
@@ -47,10 +50,11 @@ perform_mecor <- function(data){
 #' standard error of the estimated coefficient and the confidence interval based
 #' on the jackknife variance component in simex
 perform_simex <- function(data){
+  cols_no_reps <- grep("X_star", colnames(data))
   naive_fit <- lm(Y ~ X_star_1 + Z,
                   data = data,
                   x = TRUE)
-  var <- mean(apply(data[, c("X_star_1", "X_star_2", "X_star_3")],
+  var <- mean(apply(data[, cols_no_reps],
                     1,
                     var))
   simex_fit <- simex::simex(naive_fit,
