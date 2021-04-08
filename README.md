@@ -5,8 +5,8 @@ This package for R entails the code to execute a simulation study and
 the code used to analyse the output of the simulation study,
 accompanying the manuscript “Random measurement error correction in an
 exposure by means of simulation-extrapolation and regression
-calibration”. The aim of the simulation study is the comparison between
-the simex and mecor package for measurement error correction.
+calibration when no validation data are available”. The aim of the simulation study is the comparison between the simex and mecor package for measurement error correction in the setting of a replicates study.
+
 
 Installation
 ============
