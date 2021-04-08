@@ -23,12 +23,11 @@ perform_uncor <- function(data){
 #' standard error of the estimated coefficient and the confidence interval based
 #' on the bootstrap
 perform_mecor <- function(data){
-  cols_no_reps <- grep("X_star", colnames(data))[-1] # columns with replicates
-  print(cols_no_reps)
-  use_replicate <- as.matrix(data[, cols_no_reps])
+  cols_no_reps <- grep("X_star", colnames(data))[-1]
+  me <- with(data, mecor::MeasError(X_star_1,
+                                    replicate = as.matrix(data[, cols_no_reps])))
   mecor_fit <- mecor::mecor(
-    Y ~ mecor::MeasError(X_star_1,
-                         replicate = use_replicate) + Z,
+    Y ~ me + Z,
     data = data,
     method = "standard",
     B = 999
