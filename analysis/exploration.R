@@ -465,5 +465,204 @@ y <- y[2] - strheight("C)") * 1.5
 text(x, y, "C)", cex = 1)
 dev.off()
 
+##############################
+# 3 - Number of replicates ---
+##############################
+# perc bias
+sum_nrep <- summary %>% dplyr::filter(scen_no %in% c(1, 20:22))
+pdf("./results/nrep_percbias.pdf",
+    width = 2.5, height = 2.5,
+    pointsize = 8/0.75)
+
+par(
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
+)
+plot(   0,
+        type = "n",
+        xaxt = "n",
+        yaxt = "n",
+        yaxs = "i",
+        xaxs = "i",
+        frame.plot = F,
+        ann = F,
+        xlim = c(0, 10),
+        ylim = c(-100, 20),
+        asp = 10 / 120
+)
+cols <- c(rep("black", nrow(sum_nrep)))
+n_scen <- nrow(sum_nrep) / 3
+cols[seq(1, n_scen * 3, by = n_scen)] <- "grey"
+with(sum_nrep, points(nrep,
+                      perc_bias,
+                      pch = c(rep(19, n_scen), rep(17, n_scen), rep(8, n_scen)),
+                      col = cols))
+axis(
+  1,
+  at = seq(from = 0, to = 10, by = 1),
+  labels = seq(from = 0, to = 10, by = 1),
+  las = 1
+)
+mtext("Number of replicates",
+      side = 1,
+      line = 3,
+      cex = 0.75)
+axis(
+  2,
+  at = seq(from = -100, to = 20, by = 20),
+  labels = c(
+    expression(-100),
+    expression(-80),
+    expression(-60),
+    expression(-40),
+    expression(-20),
+    expression(0),
+    expression(20)
+  ),
+  las = 1
+)
+mtext("Percentage Bias, %",
+      side = 2,
+      line = 3,
+      cex = 0.75)
+legend("bottomright",
+       legend = c("Uncorrected", "Mecor", "Simex"),
+       pch = c(19, 17, 8),
+       title = expression(underline(Method)))
+di <- dev.size("in")
+x <- grconvertX(c(0, di[1]), from = "in", to = "user")
+y <- grconvertY(c(0, di[2]), from = "in", to = "user")
+fig <- par("fig")
+x <- x[1] + (x[2] - x[1]) * fig[1:2]
+y <- y[1] + (y[2] - y[1]) * fig[3:4]
+x <- x[1] + strwidth("A)")
+y <- y[2] - strheight("A)") * 1.5
+text(x, y, "A)", cex = 1)
+dev.off()
+
+# mse
+pdf("./results/nrep_mse.pdf",
+    width = 2.5, height = 2.5,
+    pointsize = 8/0.75)
+par(
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
+)
+plot(   0,
+        type = "n",
+        xaxt = "n",
+        yaxt = "n",
+        yaxs = "i",
+        xaxs = "i",
+        frame.plot = F,
+        ann = F,
+        xlim = c(0, 10),
+        ylim = c(0, 0.03),
+        asp = 10 / 0.03
+)
+cols <- c(rep("black", nrow(sum_nrep)))
+n_scen <- nrow(sum_nrep) / 3
+cols[seq(1, n_scen * 3, by = n_scen)] <- "grey"
+with(sum_nrep, points(nrep,
+                     mse,
+                     pch = c(rep(19, n_scen), rep(17, n_scen), rep(8, n_scen)),
+                     col = cols))
+axis(
+  1,
+  at = seq(from = 0, to = 10, by = 1),
+  labels = seq(from = 0, to = 10, by = 1),
+  las = 1
+)
+mtext("Number of replicates",
+      side = 1,
+      line = 3,
+      cex = 0.75)
+axis(
+  2,
+  at = seq(from = 0, to = 0.03, by = 0.01),
+  labels = c(
+    expression(0),
+    expression(0.01),
+    expression(0.02),
+    expression(0.03)
+  ),
+  las = 1
+)
+mtext("Mean Squared Error",
+      side = 2,
+      line = 3,
+      cex = 0.75)
+di <- dev.size("in")
+x <- grconvertX(c(0, di[1]), from = "in", to = "user")
+y <- grconvertY(c(0, di[2]), from = "in", to = "user")
+fig <- par("fig")
+x <- x[1] + (x[2] - x[1]) * fig[1:2]
+y <- y[1] + (y[2] - y[1]) * fig[3:4]
+x <- x[1] + strwidth("B)")
+y <- y[2] - strheight("B)") * 1.5
+text(x, y, "B)", cex = 1)
+dev.off()
+
+# coverage
+pdf("./results/nrep_coverage.pdf",
+    width = 2.5, height = 2.5,
+    pointsize = 8/0.75)
+par(
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
+)
+plot(   0,
+        type = "n",
+        xaxt = "n",
+        yaxt = "n",
+        yaxs = "i",
+        xaxs = "i",
+        frame.plot = F,
+        ann = F,
+        xlim = c(0, 10),
+        ylim = c(0, 1),
+        asp = 10 / 1
+)
+cols <- c(rep("black", nrow(sum_nrep)))
+n_scen <- nrow(sum_nrep) / 3
+cols[seq(1, n_scen * 3, by = n_scen)] <- "grey"
+with(sum_nrep, points(nrep,
+                      cover,
+                      pch = c(rep(19, n_scen), rep(17, n_scen), rep(8, n_scen)),
+                      col = cols))
+axis(
+  1,
+  at = seq(from = 0, to = 10, by = 1),
+  labels = seq(from = 0, to = 10, by = 1),
+  las = 1
+)
+mtext("Number of replicates",
+      side = 1,
+      line = 3,
+      cex = 0.75)
+axis(
+  2,
+  at = seq(from = 0, to = 1, by = 0.2),
+  labels = seq(from = 0, to = 1, by = 0.2),
+  las = 1
+)
+mtext("Coverage",
+      side = 2,
+      line = 3,
+      cex = 0.75)
+di <- dev.size("in")
+x <- grconvertX(c(0, di[1]), from = "in", to = "user")
+y <- grconvertY(c(0, di[2]), from = "in", to = "user")
+fig <- par("fig")
+x <- x[1] + (x[2] - x[1]) * fig[1:2]
+y <- y[1] + (y[2] - y[1]) * fig[3:4]
+x <- x[1] + strwidth("C)")
+y <- y[2] - strheight("C)") * 1.5
+text(x, y, "C)", cex = 1)
+dev.off()
+
 
 

@@ -12,8 +12,8 @@
 ##############################
 # 1 - Create data.frame summary
 ##############################
-process_output(1:19)
-summary <- summarise_sim(1:19)
+process_output(1:22)
+summary <- summarise_sim(1:22)
 
 ##############################
 # 2 - Add summary to package ---
