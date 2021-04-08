@@ -12,11 +12,12 @@
 ##############################
 # 1 - Create data.frame input-
 ##############################
-input <- data.frame(matrix(nrow = 19, ncol = 11))
+input <- data.frame(matrix(nrow = 22, ncol = 12))
 colnames(input) <- c("scen_no",
                      "nobs", # input param generate_data()
                      "gamma", # input param generate_data()
                      "omega_sq", # input param generate_data()
+                     "nrep", # input param generate_data()
                      "tau_sq", # input param generate_data()
                      "sigma_sq", # input param generate_data()
                      "beta", # input param generate_data()
@@ -26,34 +27,38 @@ colnames(input) <- c("scen_no",
                      "confounding") # calculated from param
 input$scen_no <- 1:NROW(input)
 # base setting
-input[1, 2:7] <- c(500, 0, 50, 30, 100, 0.2)
+input[1, 2:8] <- c(500, 0, 50, 3, 30, 100, 0.2)
 # reliability setting
 # less reliable (increasing tau_sq)
-input[2, 2:7] <- c(500, 0, 50, 200, 100, 0.2)
-input[3, 2:7] <- c(500, 0, 50, 100, 100, 0.2)
-input[4, 2:7] <- c(500, 0, 50, 50, 100, 0.2)
+input[2, 2:8] <- c(500, 0, 50, 3, 200, 100, 0.2)
+input[3, 2:8] <- c(500, 0, 50, 3, 100, 100, 0.2)
+input[4, 2:8] <- c(500, 0, 50, 3, 50, 100, 0.2)
 # more reliable (decreasing tau_sq)
-input[5, 2:7] <- c(500, 0, 50, 25, 100, 0.2)
-input[6, 2:7] <- c(500, 0, 50, 20, 100, 0.2)
-input[7, 2:7] <- c(500, 0, 50, 15, 100, 0.2)
-input[8, 2:7] <- c(500, 0, 50, 10, 100, 0.2)
-input[9, 2:7] <- c(500, 0, 50, 5, 100, 0.2)
+input[5, 2:8] <- c(500, 0, 50, 3, 25, 100, 0.2)
+input[6, 2:8] <- c(500, 0, 50, 3, 20, 100, 0.2)
+input[7, 2:8] <- c(500, 0, 50, 3, 15, 100, 0.2)
+input[8, 2:8] <- c(500, 0, 50, 3, 10, 100, 0.2)
+input[9, 2:8] <- c(500, 0, 50, 3, 5, 100, 0.2)
 # r-squared setting
 # increasing r-squared outcome model (decreasing res errors sigma_sq)
-input[10, 2:7] <- c(500, 0, 50, 30, 20, 0.2)
-input[11, 2:7] <- c(500, 0, 50, 30, 5, 0.2)
-input[12, 2:7] <- c(500, 0, 50, 30, 1, 0.2)
+input[10, 2:8] <- c(500, 0, 50, 3, 30, 20, 0.2)
+input[11, 2:8] <- c(500, 0, 50, 3, 30, 5, 0.2)
+input[12, 2:8] <- c(500, 0, 50, 3, 30, 1, 0.2)
 # sample size setting
-input[13, 2:7] <- c(125, 0, 50, 30, 100, 0.2)
-input[14, 2:7] <- c(250, 0, 50, 30, 100, 0.2)
-input[15, 2:7] <- c(1000, 0, 50, 30, 100, 0.2)
+input[13, 2:8] <- c(125, 0, 50, 3, 30, 100, 0.2)
+input[14, 2:8] <- c(250, 0, 50, 3, 30, 100, 0.2)
+input[15, 2:8] <- c(1000, 0, 50, 3, 30, 100, 0.2)
 # confounding
 # changing gamma
-input[16, 2:7] <- c(500, 1, 50, 30, 100, 0.2)
-input[17, 2:7] <- c(500, 4, 50, 30, 100, 0.2)
-input[18, 2:7] <- c(500, 8, 50, 30, 100, 0.2)
+input[16, 2:8] <- c(500, 1, 50, 3, 30, 100, 0.2)
+input[17, 2:8] <- c(500, 4, 50, 3, 30, 100, 0.2)
+input[18, 2:8] <- c(500, 8, 50, 3, 30, 100, 0.2)
 # null-effect
-input[19, 2:7] <- c(500, 0, 50, 30, 100, 0)
+input[19, 2:8] <- c(500, 0, 50, 3, 30, 100, 0)
+# changing number of replicates
+input[20, 2:8] <- c(500, 1, 50, 2, 30, 100, 0.2)
+input[21, 2:8] <- c(500, 4, 50, 5, 30, 100, 0.2)
+input[22, 2:8] <- c(500, 8, 50, 10, 30, 100, 0.2)
 # reliability is equal to the var(X) / var(X_star)
 calc_reliability <- function(gamma,
                              omega_sq,

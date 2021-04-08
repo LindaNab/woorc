@@ -11,6 +11,7 @@ A data frame with 14 rows and 10 variables:
   \item{nobs}{number of observations (sample size)}
   \item{gamma}{\eqn{\gamma}}
   \item{omega_sq}{\eqn{\omega^2}}
+  \item{nrep}{number of replicates}
   \item{tau_sq}{\eqn{\tau^2}}
   \item{sigma_sq}{\eqn{\sigma^2}}
   \item{beta}{estimand}
