@@ -5,7 +5,7 @@
 \alias{input}
 \title{Input of Simulation Study}
 \format{
-A data frame with 14 rows and 10 variables:
+A data frame with 23 rows and 10 variables:
 \describe{
   \item{scen_no}{scenario no.}
   \item{nobs}{number of observations (sample size)}
@@ -25,12 +25,12 @@ A data frame with 14 rows and 10 variables:
 input
 }
 \description{
-A dataset containing the 14 scenarios that are used to input the simulation
+A dataset containing the 23 scenarios that are used to input the simulation
 study. The data generating mechanisms used in this study are:\cr
 age ~ N(32, 25) \cr
-blood_pressure ~ N(120 + \eqn{\gamma}Z, \eqn{\omega^2}) \cr
-blood_pressure_star ~ N(blood_pressure, \eqn{\tau^2}) \cr
-creatinine ~ N(30 + 0.2 blood_pressure + 0.2 age, \eqn{\sigma^2})
+blood_pressure|age ~ N(120 + \eqn{\gamma} age, \eqn{\omega^2}) \cr
+blood_pressure_star|blood_pressure ~ N(blood_pressure, \eqn{\tau^2}) \cr
+creatinine|blood_pressure,age ~ N(30 + 0.2 blood_pressure + 0.2 age, \eqn{\sigma^2})
 }
 \examples{
 data("input", package = "simexvsmecor")

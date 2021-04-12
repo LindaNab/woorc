@@ -1,13 +1,13 @@
 #' Input of Simulation Study
 #'
-#' A dataset containing the 14 scenarios that are used to input the simulation
+#' A dataset containing the 23 scenarios that are used to input the simulation
 #' study. The data generating mechanisms used in this study are:\cr
 #' age ~ N(32, 25) \cr
-#' blood_pressure ~ N(120 + \eqn{\gamma}Z, \eqn{\omega^2}) \cr
-#' blood_pressure_star ~ N(blood_pressure, \eqn{\tau^2}) \cr
-#' creatinine ~ N(30 + 0.2 blood_pressure + 0.2 age, \eqn{\sigma^2})
+#' blood_pressure|age ~ N(120 + \eqn{\gamma} age, \eqn{\omega^2}) \cr
+#' blood_pressure_star|blood_pressure ~ N(blood_pressure, \eqn{\tau^2}) \cr
+#' creatinine|blood_pressure,age ~ N(30 + 0.2 blood_pressure + 0.2 age, \eqn{\sigma^2})
 #'
-#' @format A data frame with 14 rows and 10 variables:
+#' @format A data frame with 23 rows and 10 variables:
 #' \describe{
 #'   \item{scen_no}{scenario no.}
 #'   \item{nobs}{number of observations (sample size)}
@@ -30,7 +30,7 @@
 #' A dataset containing a summary of the results from the 14 scenarios x 3
 #' methods (= 42)
 #'
-#' @format A data frame with 42 rows and 24 variables:
+#' @format A data frame with 96 rows and 24 variables:
 #' \describe{
 #'   \item{scen_no}{scenario no.}
 #'   \item{nobs}{number of observations (sample size)}
@@ -62,3 +62,21 @@
 #' @examples
 #' data("summary", package = "simexvsmecor")
 "summary"
+#' Input of Simulation Study Conducted by Perrier et al.
+#'
+#' A dataset containing 9 scenarios that are used to input the simulation
+#' study conducted by Perrier et al. The data generating mechanisms used in this study are:\cr
+#' X ~ N(0, 1) \cr
+#' X_star|X ~ N(X, \eqn{\tau^2}) \cr
+#' Y ~ N(14900 - 100 X, \eqn{1650^2}) \cr
+#'
+#' @format A data frame with 9 rows and 4 variables:
+#' \describe{
+#'   \item{scen_no}{scenario no.}
+#'   \item{nobs}{number of observations (sample size)}
+#'   \item{nrep}{number of replicates}
+#'   \item{tau_sq}{\eqn{\tau^2}}
+#' }
+#' @examples
+#' data("input_perrier", package = "simexvsmecor")
+"input_perrier"

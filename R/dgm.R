@@ -1,11 +1,11 @@
 #' Generate data for simulation study
 #'
-#' @param seed_no No. of seed
-#' @param nobs Number of observations
+#' @param seed_no seed no. used to generate data
+#' @param nobs number of observations
 #' @param gamma Cov(X,Z) / Var(X)
 #' @param omega_sq Var(X|Z)
-#' @param tau_sq Extra variance due to measurement error in error-prone measure X_star
-#' @param nrep Number of replicates of X_star (defaults to 3)
+#' @param tau_sq extra variance due to measurement error in error-prone measure X_star
+#' @param nrep number of replicates of X_star (defaults to 3)
 #' @param sigma_sq Var(Y|X,Z)
 #' @return Data.frame with variables Z, X, X_star_1, ..., X_star_nrep and Y
 generate_data <- function(seed_no,
@@ -35,7 +35,7 @@ generate_data <- function(seed_no,
 #' @param seed_no seed no. used to generate data
 #' @param scen_no scenario no. in the input to generate data from
 #' @return a data.frame with the data containing the variables Z, X, X_star_1,
-#' X_star_2, X_star_3 and Y
+#' ..., X_star_nrep and Y
 generate_data_scen_no <- function(seed_no,
                                   scen_no) {
   data(input)

@@ -14,7 +14,7 @@ generate_data_scen_no(seed_no, scen_no)
 }
 \value{
 a data.frame with the data containing the variables Z, X, X_star_1,
-X_star_2, X_star_3 and Y
+..., X_star_nrep and Y
 }
 \description{
 Generate data of a specific scenario number specified in input data available

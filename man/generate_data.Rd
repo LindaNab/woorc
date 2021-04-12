@@ -16,17 +16,17 @@ generate_data(
 )
 }
 \arguments{
-\item{seed_no}{No. of seed}
+\item{seed_no}{seed no. used to generate data}
 
-\item{nobs}{Number of observations}
+\item{nobs}{number of observations}
 
 \item{gamma}{Cov(X,Z) / Var(X)}
 
 \item{omega_sq}{Var(X|Z)}
 
-\item{nrep}{Number of replicates of X_star (defaults to 3)}
+\item{nrep}{number of replicates of X_star (defaults to 3)}
 
-\item{tau_sq}{Extra variance due to measurement error in error-prone measure X_star}
+\item{tau_sq}{extra variance due to measurement error in error-prone measure X_star}
 
 \item{sigma_sq}{Var(Y|X,Z)}
 }

@@ -5,7 +5,7 @@
 \alias{summary}
 \title{Summary of Simulation Study}
 \format{
-A data frame with 42 rows and 24 variables:
+A data frame with 96 rows and 24 variables:
 \describe{
   \item{scen_no}{scenario no.}
   \item{nobs}{number of observations (sample size)}
