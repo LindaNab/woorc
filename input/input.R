@@ -12,7 +12,7 @@
 ##############################
 # 1 - Create data.frame input-
 ##############################
-input <- data.frame(matrix(nrow = 22, ncol = 12))
+input <- data.frame(matrix(nrow = 23, ncol = 12))
 colnames(input) <- c("scen_no",
                      "nobs", # input param generate_data()
                      "gamma", # input param generate_data()
@@ -59,6 +59,8 @@ input[19, 2:8] <- c(500, 0, 50, 3, 30, 100, 0)
 input[20, 2:8] <- c(500, 1, 50, 2, 30, 100, 0.2)
 input[21, 2:8] <- c(500, 4, 50, 5, 30, 100, 0.2)
 input[22, 2:8] <- c(500, 8, 50, 10, 30, 100, 0.2)
+# testing if simex is less biased for larger sample sizes
+input[23, 2:8] <- c(10000, 0, 50, 3, 30, 100, 0.2)
 # reliability is equal to the var(X) / var(X_star)
 calc_reliability <- function(gamma,
                              omega_sq,
