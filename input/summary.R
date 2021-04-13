@@ -26,9 +26,9 @@ usethis::use_data(summary, overwrite = TRUE)
 ##############################
 # 1 - Create data.frame summary_perrier
 ##############################
-process_output(scen_nos = 1:8, output_dir = "./output/perrier/perrier_",
+process_output(scen_nos = 1:7, output_dir = "./output/perrier/perrier_",
                processed_dir = "./output/perrier/processed/")
-summary_perrier <- summarise_sim(scen_nos = 1:8,
+summary_perrier <- summarise_sim(scen_nos = 1:7,
                                  use_input = input_perrier,
                                  processed_dir = "./output/perrier/processed/")
 
