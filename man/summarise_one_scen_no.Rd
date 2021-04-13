@@ -4,13 +4,20 @@
 \alias{summarise_one_scen_no}
 \title{Summarise one scenario no.}
 \usage{
-summarise_one_scen_no(summary, scen_no, processed_dir = "./output/processed/")
+summarise_one_scen_no(
+  summary,
+  scen_no,
+  use_input,
+  processed_dir = "./output/processed/"
+)
 }
 \arguments{
 \item{summary}{data.frame initiated by init_summary() to be filled with
 summary parameters}
 
 \item{scen_no}{scen no. to be summarised}
+
+\item{use_input}{input of the simulation study}
 
 \item{processed_dir}{directory where processed simulation output is to be
 found, defaults to "./output/processed/"}

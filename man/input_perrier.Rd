@@ -11,6 +11,7 @@ A data frame with 9 rows and 4 variables:
   \item{nobs}{number of observations (sample size)}
   \item{nrep}{number of replicates}
   \item{tau_sq}{\eqn{\tau^2}}
+  \item{beta}{estimand (equal to 100)}
 }
 }
 \usage{

@@ -4,12 +4,14 @@
 \alias{summarise_sim}
 \title{Summarise simulation study}
 \usage{
-summarise_sim(scen_nos, output_dir = "./output/")
+summarise_sim(scen_nos, use_input, processed_dir = "./output/processed/")
 }
 \arguments{
 \item{scen_nos}{scen no.'s to be summarised}
 
-\item{output_dir}{directory where the output of the simulation study is to be
+\item{use_input}{input of simulation study}
+
+\item{processed_dir}{directory where the processed files of the simulation is to be found
 found}
 }
 \value{

@@ -76,7 +76,38 @@
 #'   \item{nobs}{number of observations (sample size)}
 #'   \item{nrep}{number of replicates}
 #'   \item{tau_sq}{\eqn{\tau^2}}
+#'   \item{beta}{estimand (equal to 100)}
 #' }
 #' @examples
 #' data("input_perrier", package = "simexvsmecor")
 "input_perrier"
+#' Summary of Simulation Study Replication Perrier et al.
+#'
+#' A dataset containing a summary of the results from the 8 scenarios x 3
+#' methods (= 24)
+#'
+#' @format A data frame with 96 rows and 24 variables:
+#' \describe{
+#'   \item{scen_no}{scenario no.}
+#'   \item{nobs}{number of observations (sample size)}
+#'   \item{nrep}{number of replicates}
+#'   \item{tau_sq}{\eqn{\tau^2}}
+#'   \item{beta}{estimand}
+#'   \item{bias}{bias}
+#'   \item{bias_mcse}{monte carlo standard error of the bias}
+#'   \item{mse}{mean squared error}
+#'   \item{mse_mcse}{monte carlo standard error of the mean squared error}
+#'   \item{cover}{coverage}
+#'   \item{cover_mcse}{monte carlo standard error of the coverage}
+#'   \item{modelse}{model based standard error}
+#'   \item{modelse_mcse}{monte carlo standard error of the model based standard error}
+#'   \item{empse}{empirical standard error}
+#'   \item{empse_mcse}{monte carlo standard error of the empirical standard error}
+#'   \item{nsim}{number of replications}
+#'   \item{nsim_mcse}{monte carlo standard error of the number of replications (NA)}
+#'   \item{r_sqaured_est}{estimated R-squared of Y ~ X}
+#'   \item{perc_bias}{percentage bias}
+#' }
+#' @examples
+#' data("summary", package = "summary_perrier")
+"summary_perrier"

@@ -16,10 +16,12 @@ eval_param_rsimsum <- function(){
 #' Initialise summary object
 #'
 #' @param scen_nos scen no.'s to be used in the summary object
+#' @param input input of simulation study
 #' @return a data.frame with length(scen_nos) rows and length(eval_param_rsimsum())
 #' +1 columns. See function eval_param_rsimsum() for evaluated parameters in
 #' summary. Additionally, a column for the estimated r-squared is added.
-init_summary <- function(scen_nos){
+init_summary <- function(scen_nos,
+                         input){
   # parameters that will be evaluated
   eval_param <- eval_param_rsimsum()
   # init dataframe that will hold the results of the sim study
@@ -32,7 +34,6 @@ init_summary <- function(scen_nos){
   # for all scen_nos, 3 methods are used
   summary <- expand.grid(scen_no = scen_nos,
                          method = c("uncor", "mecor", "simex"))
-  data(input) # input parameters of the sim study
   summary <- dplyr::left_join(summary,
                               input,
                               by = "scen_no")
@@ -44,7 +45,8 @@ init_summary <- function(scen_nos){
 #' Summarise simulation study
 #'
 #' @param scen_nos scen no.'s to be summarised
-#' @param output_dir directory where the output of the simulation study is to be
+#' @param use_input input of simulation study
+#' @param processed_dir directory where the processed files of the simulation is to be found
 #' found
 #' @return a filled data.frame that is initiated using the function
 #' init_summary(), and additionally a column with the percentage bias in each
@@ -52,10 +54,15 @@ init_summary <- function(scen_nos){
 #'
 #' @export
 summarise_sim <- function(scen_nos,
-                          output_dir = "./output/"){
-  summary <- init_summary(scen_nos)
+                          use_input,
+                          processed_dir = "./output/processed/"){
+  summary <- init_summary(scen_nos,
+                          use_input)
   for (i in seq_along(scen_nos)){
-    summary <- summarise_one_scen_no(summary, scen_nos[i])
+    summary <- summarise_one_scen_no(summary,
+                                     scen_nos[i],
+                                     use_input,
+                                     processed_dir)
   }
   summary$perc_bias <- (summary$bias / summary$beta) * 100
   return(summary)
@@ -65,18 +72,20 @@ summarise_sim <- function(scen_nos,
 #' @param summary data.frame initiated by init_summary() to be filled with
 #' summary parameters
 #' @param scen_no scen no. to be summarised
+#' @param use_input input of the simulation study
 #' @param processed_dir directory where processed simulation output is to be
 #' found, defaults to "./output/processed/"
 #' @return this function will fill out the rows in the summary object of the
 #' corresponding scen_no
 summarise_one_scen_no <- function(summary,
                                   scen_no,
+                                  use_input,
                                   processed_dir = "./output/processed/"){
   file <- paste0(processed_dir, "scen_no", scen_no, ".Rds")
   processed_output <- data.frame(readRDS(file = file))
   simsum <- rsimsum::simsum(data = processed_output,
                             estvarname = "effect",
-                            true = 0.2,
+                            true = use_input[use_input$scen_no == scen_no, "beta"],
                             se = "se",
                             methodvar = "method",
                             ci.limits = c("ci.lower", "ci.upper"),

@@ -4,10 +4,12 @@
 \alias{init_summary}
 \title{Initialise summary object}
 \usage{
-init_summary(scen_nos)
+init_summary(scen_nos, input)
 }
 \arguments{
 \item{scen_nos}{scen no.'s to be used in the summary object}
+
+\item{input}{input of simulation study}
 }
 \value{
 a data.frame with length(scen_nos) rows and length(eval_param_rsimsum())

@@ -14,4 +14,4 @@ scenario=${SLURM_ARRAY_TASK_ID}
 module purge
 module add statistical/R/4.0.2/gcc.8.3.1
 
-Rscript --vanilla ./input/output_perrier.R 1000 $scenario "./output/perrier"
+Rscript --vanilla ./input/output_perrier.R 1000 $scenario "./output/perrier/"
