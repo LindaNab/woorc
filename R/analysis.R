@@ -36,7 +36,7 @@ perform_mecor <- function(data){
   )
   effect <- mecor_fit$corfit$coef[2]
   se <- summary(mecor_fit)$c$coefficients[2, 2]
-  ci <-  summary(mecor_fit)$c$ci[2, 4:5]
+  ci <-  summary(mecor_fit)$c$ci[2, 2:3]
   names(ci) <- c("lower", "upper")
   return(c(
     effect = unname(effect),
