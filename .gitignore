@@ -4,3 +4,6 @@
 .Ruserdata
 .DS_Store
 output/processed/*
+output/perrier/scen_no1/*
+output/perrier/scen_no1.zip
+output/perrier/processed/*
