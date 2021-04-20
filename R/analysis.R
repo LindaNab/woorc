@@ -24,10 +24,12 @@ perform_uncor <- function(data){
 #' on the bootstrap
 perform_mecor <- function(data){
   cols_no_reps <- grep("X_star", colnames(data))[-1]
-  me <- with(data, mecor::MeasError(X_star_1,
-                                    replicate = as.matrix(data[, cols_no_reps])))
+  var <- mean(apply(data[, cols_no_reps],
+                    1,
+                    var))
   mecor_fit <- mecor::mecor(
-    Y ~ me + Z,
+    Y ~ mecor::MeasErrorRandom(X_star_1,
+                               var) + Z,
     data = data,
     method = "standard",
     B = 999
