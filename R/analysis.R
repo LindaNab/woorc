@@ -23,7 +23,7 @@ perform_uncor <- function(data){
 #' standard error of the estimated coefficient and the confidence interval based
 #' on the bootstrap
 perform_mecor <- function(data){
-  cols_no_reps <- grep("X_star", colnames(data))[-1]
+  cols_no_reps <- grep("X_star", colnames(data))
   var <- mean(apply(data[, cols_no_reps],
                     1,
                     var))
