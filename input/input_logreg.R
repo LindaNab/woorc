@@ -12,7 +12,7 @@
 ##############################
 # 1 - Create data.frame input_logreg-
 ##############################
-input_logreg <- data.frame(matrix(nrow = 1, ncol = 9))
+input_logreg <- data.frame(matrix(nrow = 23, ncol = 9))
 colnames(input_logreg) <- c("scen_no",
                             "nobs", # input_logreg param generate_data()
                             "gamma", # input_logreg param generate_data()
