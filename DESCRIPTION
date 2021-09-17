@@ -15,4 +15,5 @@ Imports:
     simex,
     rsimsum,
     dplyr,
-    magrittr
+    magrittr,
+    DescTools

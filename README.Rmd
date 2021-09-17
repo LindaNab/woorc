@@ -17,9 +17,18 @@ knitr::opts_chunk$set(
 This package for R entails the code to execute a simulation study
 and the code used to analyse the output of the simulation study, 
 accompanying the manuscript "Random measurement error correction in an exposure 
-by means of simulation-extrapolation and regression calibration". The aim of the
+by means of regression calibration and simulation-extrapolation". The aim of the
 simulation study is the comparison between the simex and mecor package for 
-measurement error correction.
+measurement error correction. 
+
+The first part of this package consist out of a 
+simulation study comparing regression calibration and simulation-extrapolation
+for a linear model with a continuous outcome. The second part of this simulation
+study consist out of a simulation study comparing regression calibration and 
+simulation-extrapolation for a logistic regression. The files for the second 
+part are indicated with a suffix '_logreg'. In addition, a small replication of
+the simulation study by Perrier et al. was done, which can be found in the files
+indicated with the suffix '_perrier'. 
 
 # Installation
 The package can be installed via

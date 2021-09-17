@@ -7,6 +7,7 @@
 #' @param tau_sq extra variance due to measurement error in error-prone measure X_star
 #' @param nrep number of replicates of X_star (defaults to 3)
 #' @param sigma_sq Var(Y|X,Z)
+#' @param beta estimand, defaults to 0.2
 #' @return Data.frame with variables Z, X, X_star_1, ..., X_star_nrep and Y
 generate_data <- function(seed_no,
                           nobs,

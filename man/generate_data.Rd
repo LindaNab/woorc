@@ -29,6 +29,8 @@ generate_data(
 \item{tau_sq}{extra variance due to measurement error in error-prone measure X_star}
 
 \item{sigma_sq}{Var(Y|X,Z)}
+
+\item{beta}{estimand, defaults to 0.2}
 }
 \value{
 Data.frame with variables Z, X, X_star_1, ..., X_star_nrep and Y

@@ -3,6 +3,7 @@
 export("%>%")
 export(process_output)
 export(run_sim)
+export(run_sim_logreg)
 export(run_sim_perrier)
 export(summarise_sim)
 importFrom(magrittr,"%>%")

@@ -25,6 +25,30 @@
 #' @examples
 #' data("input", package = "simexvsmecor")
 "input"
+#' Input of Simulation Study PART II (logreg)
+#'
+#' A dataset containing the 23 scenarios that are used to input the simulation
+#' study. The data generating mechanisms used in this study are:\cr
+#' age ~ U(18, 80) \cr
+#' na|age ~ N(4 + \eqn{\gamma} age, 1) \cr
+#' na_star|na ~ N(na, \eqn{\tau^2}) \cr
+#' hypertension|na,age ~ Bin(1, 1/(1+exp(-p))), where p = -7 + \eqn{\beta} na + \eqn{\phi} age
+#'
+#' @format A data frame with 23 rows and 10 variables:
+#' \describe{
+#'   \item{scen_no}{scenario no.}
+#'   \item{nobs}{number of observations (sample size)}
+#'   \item{gamma}{\eqn{\gamma}}
+#'   \item{nrep}{number of replicates}
+#'   \item{tau_sq}{\eqn{\tau^2}}
+#'   \item{phi}{\eqn{\phi}}
+#'   \item{beta}{estimand (0.1)}
+#'   \item{reliability}{Var(na) / Var(na_star)}
+#'   \item{attenuation}{Var(na|age) / Var(na_star|age)}
+#' }
+#' @examples
+#' data("input_logreg", package = "simexvsmecor")
+"input_logreg"
 #' Summary of Simulation Study
 #'
 #' A dataset containing a summary of the results from the 14 scenarios x 3
