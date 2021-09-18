@@ -36,3 +36,18 @@ summary_perrier <- summarise_sim(scen_nos = 1:7,
 # 2 - Add summary_perrier to package
 ##############################
 usethis::use_data(summary_perrier, overwrite = TRUE)
+
+##############################
+# 1 - Create data.frame summary_logreg
+##############################
+process_output(1:2,
+               output_dir = "./output/logreg_",
+               processed_dir = "./output/processed/logreg_")
+summary_logreg <- summarise_sim(1:2,
+                                use_input = input_logreg,
+                                processed_dir = "./output/processed/logreg_")
+
+##############################
+# 2 - Add summary_logreg to package
+##############################
+usethis::use_data(summary_logreg, overwrite = TRUE)
