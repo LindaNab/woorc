@@ -82,7 +82,7 @@ regcal_logreg <- function(data, var){
 #' @return numeric vector with the coefficient of the corrected analysis, the
 #' standard error of the estimated coefficient and the confidence interval based
 #' on the jackknife variance component in simex
-perform_simex <- function(data){
+perform_simex_logreg <- function(data){
   cols_no_reps <- grep("X_star", colnames(data))
   naive_fit <- glm(Y ~ X_star_1 + Z1,
                    family = binomial(link = "logit"),
@@ -114,7 +114,7 @@ perform_simex <- function(data){
 get_est_effects_logreg <- function(data){
   effect_uncor <- perform_uncor_logreg(data)
   effect_mecor <- perform_mecor_logreg(data)
-  effect_simex <- perform_simex(data)
+  effect_simex <- perform_simex_logreg(data)
   effects <- c(uncor = effect_uncor,
                mecor = effect_mecor,
                simex = effect_simex)
