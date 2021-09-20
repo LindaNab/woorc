@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=simexvsmecor_logreg    # Job name
-#SBATCH --output=/exports/clinicalepi/Linda/simexvsmecor/job%A_logreg_scen_%a.out              # Output file name
-#SBATCH --error=/exports/clinicalepi/Linda/simexvsmecor/job%A_logreg_scen_%a.err               # Error file name
+#SBATCH --output=/exports/clinicalepi/Linda/simexvsmecor/job%A_logreg2_scen_%a.out              # Output file name
+#SBATCH --error=/exports/clinicalepi/Linda/simexvsmecor/job%A_logreg2_scen_%a.err               # Error file name
 #SBATCH --time=100:00:00                 # Time limit
 #SBATCH --nodes=1                       # Number of nodes
 #SBATCH --ntasks-per-node=1             # MPI processes per node
