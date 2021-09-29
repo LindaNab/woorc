@@ -56,7 +56,7 @@ input_logreg[20, 2:7] <- c(4000, 0.01, 2, 2, 0.1, 0.1) # crude = 0.28 (R2 = 0.44
 input_logreg[21, 2:7] <- c(4000, 0.1, 2, 2, 0.1, 0.1) # crude = 0.81 (R2 = 0.41)
 input_logreg[22, 2:7] <- c(4000, 0.2, 2, 2, 0.1, 0.1) # crude = 0.56 (R2 = 0.57) (base crude 0.06)
 # null-effect
-input_logreg[23, 2:7] <- c(4000, 0, 2, 2, 0.1, 0.1)
+input_logreg[23, 2:7] <- c(4000, 0, 2, 2, 0.1, 0)
 
 # reliability is equal to the var(X) / var(X_star)
 calc_reliability_logreg <- function(gamma,
