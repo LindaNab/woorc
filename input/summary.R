@@ -40,10 +40,10 @@ usethis::use_data(summary_perrier, overwrite = TRUE)
 ##############################
 # 1 - Create data.frame summary_logreg
 ##############################
-process_output(1:2,
+process_output(1:23,
                output_dir = "./output/logreg_",
                processed_dir = "./output/processed/logreg_")
-summary_logreg <- summarise_sim(1:2,
+summary_logreg <- summarise_sim(1:23,
                                 use_input = input_logreg,
                                 processed_dir = "./output/processed/logreg_")
 

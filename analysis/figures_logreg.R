@@ -2,67 +2,30 @@
 ## ANALYSIS SCRIPTS USED FOR THE SCIENTIFIC RESEARCH
 ##
 ## This script contains code that explores the output of the sim
-## study summarised in data(summary)
-## lindanab4@gmail.com - 20210322
+## study PARTII (logreg) summarised in data(summary_logreg)
+## lindanab4@gmail.com - 20210920
 #############################################################
 
 ##############################
 # 0 - Load librairies --------
 ##############################
 library(dplyr)
-data(summary) # summary of sim study
+data(summary_logreg) # summary of sim study
 
 ##############################
-# 1 - Explore results --------
+# 1 - ModelSE and EmpSE ------
 ##############################
-# Percentage bias
-with(summary %>% dplyr::filter(method == "uncor"),
-     plot(scen_no, perc_bias, ylim = c(-40, 20)))
-with(summary %>% dplyr::filter(method == "mecor"),
-     points(scen_no, perc_bias, col = "red"))
-with(summary %>% dplyr::filter(method == "simex"),
-     points(scen_no, perc_bias, col = "blue"))
-legend("topright",
-       legend = c("uncorrected", "mecor", "simex"),
-       col = c("black", "red", "blue"),
-       pch = 1)
-
-# Mean squared error
-with(summary %>% dplyr::filter(method == "uncor"),
-     plot(scen_no, mse, ylim = c(0, 0.02)))
-with(summary %>% dplyr::filter(method == "mecor"),
-     points(scen_no, mse, col = "red"))
-with(summary %>% dplyr::filter(method == "simex"),
-     points(scen_no, mse, col = "blue"))
-legend("topright",
-       legend = c("uncorrected", "mecor", "simex"),
-       col = c("black", "red", "blue"),
-       pch = 1)
-
-# Coverage
-with(summary %>% dplyr::filter(method == "uncor"),
-     plot(scen_no, cover, ylim = c(0, 1.1)))
-with(summary %>% dplyr::filter(method == "mecor"),
-     points(scen_no, cover, col = "red"))
-with(summary %>% dplyr::filter(method == "simex"),
-     points(scen_no, cover, col = "blue"))
-legend("bottomright",
-       legend = c("uncorrected", "mecor", "simex"),
-       col = c("black", "red", "blue"),
-       pch = 1)
-
-# ModelSE and EmpSe
-with(summary %>% dplyr::filter(method == "uncor"),
+with(summary_logreg %>% dplyr::filter(method == "uncor"),
      plot(scen_no, modelse, ylim = c(0, 0.15)))
-with(summary %>% dplyr::filter(method == "mecor"),
+with(summary_logreg %>% dplyr::filter(method == "mecor"),
      points(scen_no, modelse, col = "red"))
-with(summary %>% dplyr::filter(method == "simex"),
+with(summary_logreg %>% dplyr::filter(method == "simex"),
      points(scen_no, modelse, col = "blue"))
-with(summary %>% dplyr::filter(method == "uncor"),
+with(summary_logreg %>% dplyr::filter(method == "uncor"),
      points(scen_no, empse, col = "black", pch = 3))
-with(summary %>% dplyr::filter(method == "mecor"),
+with(summary_logreg %>% dplyr::filter(method == "mecor"),
      points(scen_no, empse, col = "red", pch = 3))
-with(summary %>% dplyr::filter(method == "simex"),
+with(summary_logreg %>% dplyr::filter(method == "simex"),
      points(scen_no, empse, col = "blue", pch = 3))
 legend("topleft",
        legend = c("modelse uncor", "modelse mecor", "modelse simex",
@@ -75,20 +38,22 @@ legend("topleft",
 # 2 - Reliability ------------
 ##############################
 # perc bias
-sum_rel <- summary %>% dplyr::filter(scen_no %in% 1:9)
+sum_rel <- summary_logreg %>% dplyr::filter(scen_no %in% 1:9)
 sum_rel <- sum_rel[order(sum_rel$method, sum_rel$reliability),]
-max(sum_rel$bias_mcse) < 0.01
-max(sum_rel$mse_mcse) < 0.01
-max(sum_rel$cover_mcse) < 0.01
+max(sum_rel$bias_mcse) < 0.02
+max(sum_rel[(sum_rel$scen_no == 2 & sum_rel$method == "mecor") == FALSE, "mse_mcse"]) < 0.02
+sum_rel[(sum_rel$scen_no == 2 & sum_rel$method == "mecor"), "mse_mcse"] # rel = 0.05, regcal
+max(sum_rel$cover_mcse) < 0.02
 
-pdf("./results/reliability_percbias.pdf",
+
+pdf("./results/logreg_reliability_percbias.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 
 par(
-        mar = c(4.25, 5, 2, 1.25),
-        xpd = NA,
-        cex = 0.75
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
 )
 plot(   0,
         type = "n",
@@ -101,7 +66,7 @@ plot(   0,
         xlim = c(0, 1),
         ylim = c(-100, 20),
         asp = 1 / 120
-     )
+)
 cols <- c(rep("black", 9))
 cols[4] <- "grey"
 pchs <- c(19, 17, 8)
@@ -117,10 +82,10 @@ for (i in 0:2){
        ))
 }
 axis(
-        1,
-        at = seq(from = 0, to = 1, by = 0.2),
-        labels = seq(from = 0, to = 1, by = 0.2),
-        las = 1
+  1,
+  at = seq(from = 0, to = 1, by = 0.2),
+  labels = seq(from = 0, to = 1, by = 0.2),
+  las = 1
 )
 mtext("Reliability",
       side = 1,
@@ -156,13 +121,16 @@ text(x, y, "A)", cex = 1)
 dev.off()
 
 # mse
-pdf("./results/reliability_mse.pdf",
+sum_rel_mse <-
+  sum_rel %>%
+  filter(!(scen_no == 2 & method == "mecor"))
+pdf("./results/logreg_reliability_mse.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
-        mar = c(4.25, 5, 2, 1.25),
-        xpd = NA,
-        cex = 0.75
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
 )
 plot(   0,
         type = "n",
@@ -179,9 +147,9 @@ plot(   0,
 cols <- c(rep("black", 9))
 cols[4] <- "grey"
 pchs <- c(19, 17, 8)
-for (i in 0:2){
-  rows <- (i * 9 + 1):(9 * (i + 1))
-  with(sum_rel[rows,],
+for (i in c(0,2)){
+  rows <- (i * 9 + 1 - i * 0.5 ):(9 * (i + 1) - i * 0.5)
+  with(sum_rel_mse[rows,],
        points(
          reliability,
          mse,
@@ -190,28 +158,39 @@ for (i in 0:2){
          type = "b"
        ))
 }
+cols <- c(rep("black", 8))
+cols[3] <- "grey"
+rows <- 10:17 # only 8 scens
+with(sum_rel_mse[rows,],
+     points(
+       reliability,
+       mse,
+       pch = rep(pchs[2], 9),
+       col = cols,
+       type = "b"
+     ))
 axis(
-        1,
-        at = seq(from = 0, to = 1, by = 0.2),
-        labels = seq(from = 0, to = 1, by = 0.2),
-        las = 1
+  1,
+  at = seq(from = 0, to = 1, by = 0.2),
+  labels = seq(from = 0, to = 1, by = 0.2),
+  las = 1
 )
 mtext("Reliability",
       side = 1,
       line = 3,
       cex = 0.75)
 axis(
-        2,
-        at = seq(from = 0, to = 0.05, by = 0.01),
-        labels = c(
-                expression(0),
-                expression(0.01),
-                expression(0.02),
-                expression(0.03),
-                expression(0.04),
-                expression(0.05)
-        ),
-        las = 1
+  2,
+  at = seq(from = 0, to = 0.05, by = 0.01),
+  labels = c(
+    expression(0),
+    expression(0.01),
+    expression(0.02),
+    expression(0.03),
+    expression(0.04),
+    expression(0.05)
+  ),
+  las = 1
 )
 mtext("Mean Squared Error",
       side = 2,
@@ -233,13 +212,13 @@ text(x, y, "B)", cex = 1)
 dev.off()
 
 # coverage
-pdf("./results/reliability_coverage.pdf",
+pdf("./results/logreg_reliability_coverage.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
-        mar = c(4.25, 5, 2, 1.25),
-        xpd = NA,
-        cex = 0.75
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
 )
 plot(   0,
         type = "n",
@@ -269,20 +248,20 @@ for (i in 0:2){
        ))
 }
 axis(
-        1,
-        at = seq(from = 0, to = 1, by = 0.2),
-        labels = seq(from = 0, to = 1, by = 0.2),
-        las = 1
+  1,
+  at = seq(from = 0, to = 1, by = 0.2),
+  labels = seq(from = 0, to = 1, by = 0.2),
+  las = 1
 )
 mtext("Reliability",
       side = 1,
       line = 3,
       cex = 0.75)
 axis(
-        2,
-        at = seq(from = 0, to = 1, by = 0.2),
-        labels = seq(from = 0, to = 1, by = 0.2),
-        las = 1
+  2,
+  at = seq(from = 0, to = 1, by = 0.2),
+  labels = seq(from = 0, to = 1, by = 0.2),
+  las = 1
 )
 mtext("Coverage",
       side = 2,
@@ -303,19 +282,21 @@ dev.off()
 # 2 - Sample size ------------
 ##############################
 # perc bias
-sum_ss <- summary %>% dplyr::filter(scen_no %in% c(1, 13:15))
+sum_ss <- summary_logreg %>% dplyr::filter(scen_no %in% c(1, 10:12))
 sum_ss <- sum_ss[order(sum_ss$method, sum_ss$nobs),]
 max(sum_ss$bias_mcse) < 0.01
 max(sum_ss$mse_mcse) < 0.01
 max(sum_ss$cover_mcse) < 0.01
+sum_ss[(sum_ss$scen_no == 10 & sum_ss$method == "mecor"), "mse"]
+sum_ss[(sum_ss$scen_no == 10 & sum_ss$method == "mecor"), "mse_mcse"]
 
-pdf("./results/samplesize_percbias.pdf",
+pdf("./results/logreg_samplesize_percbias.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
-        mar = c(4.25, 5, 2, 1.25),
-        xpd = NA,
-        cex = 0.75
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
 )
 plot(   0,
         type = "n",
@@ -325,12 +306,12 @@ plot(   0,
         xaxs = "i",
         frame.plot = F,
         ann = F,
-        xlim = c(0, 1000),
+        xlim = c(0, 4000),
         ylim = c(-100, 20),
-        asp = 1000 / 120
+        asp = 4000 / 120
 )
 cols <- c(rep("black", 4))
-cols[3] <- "grey"
+cols[4] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
@@ -344,10 +325,10 @@ for (i in 0:2){
        ))
 }
 axis(
-        1,
-        at = seq(from = 0, to = 1000, by = 250),
-        labels = seq(from = 0, to = 1000, by = 250),
-        las = 1
+  1,
+  at = seq(from = 0, to = 4000, by = 500),
+  labels = seq(from = 0, to = 4000, by = 500),
+  las = 1
 )
 mtext("Sample Size",
       side = 1,
@@ -383,13 +364,16 @@ text(x, y, "A)", cex = 1)
 dev.off()
 
 # mse
-pdf("./results/samplesize_mse.pdf",
+sum_ss_mse <-
+  sum_ss %>%
+  filter(!(scen_no == 10 & method == "mecor"))
+pdf("./results/logreg_samplesize_mse.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
-        mar = c(4.25, 5, 2, 1.25),
-        xpd = NA,
-        cex = 0.75
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
 )
 plot(   0,
         type = "n",
@@ -399,16 +383,16 @@ plot(   0,
         xaxs = "i",
         frame.plot = F,
         ann = F,
-        xlim = c(0, 1000),
+        xlim = c(0, 4000),
         ylim = c(0, 0.05),
-        asp = 1000 / 0.05
+        asp = 4000 / 0.05
 )
 cols <- c(rep("black", 4))
-cols[3] <- "grey"
+cols[4] <- "grey"
 pchs <- c(19, 17, 8)
-for (i in 0:2){
-  rows <- (i * 4 + 1):(4 * (i + 1))
-  with(sum_ss[rows,],
+for (i in c(0,2)){
+  rows <- (i * 4 + 1 - i * 0.5 ):(4 * (i + 1) - i * 0.5)
+  with(sum_ss_mse[rows,],
        points(
          nobs,
          mse,
@@ -417,28 +401,37 @@ for (i in 0:2){
          type = "b"
        ))
 }
+rows <- 5:7 # only 8 scens
+with(sum_ss_mse[rows,],
+     points(
+       nobs,
+       mse,
+       pch = rep(pchs[2], 4),
+       col = c("black", "black", "grey"),
+       type = "b"
+     ))
 axis(
-        1,
-        at = seq(from = 0, to = 1000, by = 250),
-        labels = seq(from = 0, to = 1000, by = 250),
-        las = 1
+  1,
+  at = seq(from = 0, to = 4000, by = 500),
+  labels = seq(from = 0, to = 4000, by = 500),
+  las = 1
 )
 mtext("Sample Size",
       side = 1,
       line = 3,
       cex = 0.75)
 axis(
-        2,
-        at = seq(from = 0, to = 0.05, by = 0.01),
-        labels = c(
-                expression(0),
-                expression(0.01),
-                expression(0.02),
-                expression(0.03),
-                expression(0.04),
-                expression(0.05)
-        ),
-        las = 1
+  2,
+  at = seq(from = 0, to = 0.05, by = 0.01),
+  labels = c(
+    expression(0),
+    expression(0.01),
+    expression(0.02),
+    expression(0.03),
+    expression(0.04),
+    expression(0.05)
+  ),
+  las = 1
 )
 mtext("Mean Squared Error",
       side = 2,
@@ -460,13 +453,13 @@ text(x, y, "B)", cex = 1)
 dev.off()
 
 # coverage
-pdf("./results/samplesize_coverage.pdf",
+pdf("./results/logreg_samplesize_coverage.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
-        mar = c(4.25, 5, 2, 1.25),
-        xpd = NA,
-        cex = 0.75
+  mar = c(4.25, 5, 2, 1.25),
+  xpd = NA,
+  cex = 0.75
 )
 plot(   0,
         type = "n",
@@ -476,13 +469,13 @@ plot(   0,
         xaxs = "i",
         frame.plot = F,
         ann = F,
-        xlim = c(0, 1000),
+        xlim = c(0, 4000),
         ylim = c(0, 1),
-        asp = 1000 / 1
+        asp = 4000 / 1
 )
 segments(x0 = 0, y0 = 0.95, x1 = 1000, col = "grey")
 cols <- c(rep("black", 4))
-cols[3] <- "grey"
+cols[4] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
@@ -496,20 +489,20 @@ for (i in 0:2){
        ))
 }
 axis(
-        1,
-        at = seq(from = 0, to = 1000, by = 250),
-        labels = seq(from = 0, to = 1000, by = 250),
-        las = 1
+  1,
+  at = seq(from = 0, to = 4000, by = 500),
+  labels = seq(from = 0, to = 4000, by = 500),
+  las = 1
 )
 mtext("Sample Size",
       side = 1,
       line = 3,
       cex = 0.75)
 axis(
-        2,
-        at = seq(from = 0, to = 1, by = 0.2),
-        labels = seq(from = 0, to = 1, by = 0.2),
-        las = 1
+  2,
+  at = seq(from = 0, to = 1, by = 0.2),
+  labels = seq(from = 0, to = 1, by = 0.2),
+  las = 1
 )
 mtext("Coverage",
       side = 2,
@@ -530,14 +523,14 @@ dev.off()
 # 3 - Number of replicates ---
 ##############################
 # perc bias
-sum_nrep <- summary %>% dplyr::filter(scen_no %in% c(1, 20:22))
+sum_nrep <- summary_logreg %>% dplyr::filter(scen_no %in% c(1, 14:16))
 sum_nrep <- sum_nrep[order(sum_nrep$method, sum_nrep$nrep),]
-max(sum_nrep$bias_mcse) < 0.005
-max(sum_nrep$mse_mcse) < 0.005
+max(sum_nrep$bias_mcse) < 0.01
+max(sum_nrep$mse_mcse) < 0.01
 max(sum_nrep$cover_mcse) < 0.01
 
 
-pdf("./results/nrep_percbias.pdf",
+pdf("./results/logreg_nrep_percbias.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 
@@ -558,8 +551,6 @@ plot(   0,
         ylim = c(-100, 20),
         asp = 10 / 120
 )
-cols <- c(rep("black", 4))
-cols[2] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
@@ -568,7 +559,15 @@ for (i in 0:2){
          nrep,
          perc_bias,
          pch = rep(pchs[i+1], 4),
-         col = cols,
+         col = "black",
+         type = "b"
+       ))
+  with(sum_nrep[(i * 4 + 1),],
+       points(
+         nrep,
+         perc_bias,
+         pch = rep(pchs[i+1], 4),
+         col = "grey",
          type = "b"
        ))
 }
@@ -612,7 +611,7 @@ text(x, y, "A)", cex = 1)
 dev.off()
 
 # mse
-pdf("./results/nrep_mse.pdf",
+pdf("./results/logreg_nrep_mse.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
@@ -632,8 +631,6 @@ plot(   0,
         ylim = c(0, 0.05),
         asp = 10 / 0.05
 )
-cols <- c(rep("black", 4))
-cols[2] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
@@ -642,7 +639,15 @@ for (i in 0:2){
          nrep,
          mse,
          pch = rep(pchs[i+1], 4),
-         col = cols,
+         col = "black",
+         type = "b"
+       ))
+  with(sum_nrep[(i * 4 + 1),],
+       points(
+         nrep,
+         mse,
+         pch = rep(pchs[i+1], 4),
+         col = "grey",
          type = "b"
        ))
 }
@@ -689,7 +694,7 @@ text(x, y, "B)", cex = 1)
 dev.off()
 
 # coverage
-pdf("./results/nrep_coverage.pdf",
+pdf("./results/logreg_nrep_coverage.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
@@ -710,8 +715,6 @@ plot(   0,
         asp = 10 / 1
 )
 segments(x0 = 0, y0 = 0.95, x1 = 10, col = "grey")
-cols <- c(rep("black", 4))
-cols[2] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
@@ -720,7 +723,15 @@ for (i in 0:2){
          nrep,
          cover,
          pch = rep(pchs[i+1], 4),
-         col = cols,
+         col = "black",
+         type = "b"
+       ))
+  with(sum_nrep[(i * 4 + 1),],
+       points(
+         nrep,
+         cover,
+         pch = rep(pchs[i+1], 4),
+         col = "grey",
          type = "b"
        ))
 }
@@ -759,13 +770,13 @@ dev.off()
 # 3 - R-squared --------------
 ##############################
 # perc bias
-sum_rsq <- summary %>% dplyr::filter(scen_no %in% c(1, 10:12))
-sum_rsq <- sum_rsq[order(sum_rsq$method, sum_rsq$r_squared),]
+sum_rsq <- summary_logreg %>% dplyr::filter(scen_no %in% c(1, 17:19))
+sum_rsq <- sum_rsq[order(sum_rsq$method, sum_rsq$r_squared_est),]
 max(sum_rsq$bias_mcse) < 0.01
 max(sum_rsq$mse_mcse) < 0.01
 max(sum_rsq$cover_mcse) < 0.01
 
-pdf("./results/rsq_percbias.pdf",
+pdf("./results/logreg_rsq_percbias.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 
@@ -786,24 +797,18 @@ plot(   0,
         ylim = c(-100, 20),
         asp = 0.8 / 120
 )
+cols <- c(rep("black", 4))
+cols[3] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
   with(sum_rsq[rows,],
        points(
-         r_squared,
+         r_squared_est,
          perc_bias,
          pch = rep(pchs[i+1], 4),
-         col = "black",
+         col = cols,
          type = "b"
-       ))
-  with(sum_rsq[i * 4 + 1,],
-       points(
-         r_squared,
-         perc_bias,
-         pch = rep(pchs[i+1], 4),
-         col = "grey",
-         type = "p"
        ))
 }
 axis(
@@ -812,7 +817,7 @@ axis(
   labels = seq(from = 0, to = 0.8, by = 0.2),
   las = 1
 )
-mtext("R-Squared",
+mtext("Pseudo R-Squared (Nagelkerke)",
       side = 1,
       line = 3,
       cex = 0.75)
@@ -846,7 +851,7 @@ text(x, y, "A)", cex = 1)
 dev.off()
 
 # mse
-pdf("./results/rsq_mse.pdf",
+pdf("./results/logreg_rsq_mse.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
@@ -867,25 +872,17 @@ plot(   0,
         asp = 0.8 / 0.05
 )
 cols <- c(rep("black", 4))
-cols[1] <- "grey"
+cols[3] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
   with(sum_rsq[rows,],
        points(
-         r_squared,
+         r_squared_est,
          mse,
          pch = rep(pchs[i+1], 4),
-         col = "black",
+         col = cols,
          type = "b"
-       ))
-  with(sum_rsq[i * 4 + 1,],
-       points(
-         r_squared,
-         mse,
-         pch = rep(pchs[i+1], 4),
-         col = "grey",
-         type = "p"
        ))
 }
 axis(
@@ -894,7 +891,7 @@ axis(
   labels = seq(from = 0, to = 0.8, by = 0.2),
   las = 1
 )
-mtext("R-Squared",
+mtext("Pseudo R-Squared (Nagelkerke)",
       side = 1,
       line = 3,
       cex = 0.75)
@@ -931,7 +928,7 @@ text(x, y, "B)", cex = 1)
 dev.off()
 
 # coverage
-pdf("./results/rsq_coverage.pdf",
+pdf("./results/logreg_rsq_coverage.pdf",
     width = 2.5, height = 2.5,
     pointsize = 8/0.75)
 par(
@@ -952,24 +949,18 @@ plot(   0,
         asp = 0.8 / 1
 )
 segments(x0 = 0, y0 = 0.95, x1 = 0.8, col = "grey")
+cols <- c(rep("black", 4))
+cols[3] <- "grey"
 pchs <- c(19, 17, 8)
 for (i in 0:2){
   rows <- (i * 4 + 1):(4 * (i + 1))
   with(sum_rsq[rows,],
        points(
-         r_squared,
+         r_squared_est,
          cover,
          pch = rep(pchs[i+1], 4),
-         col = "black",
+         col = cols,
          type = "b"
-       ))
-  with(sum_rsq[i * 4 + 1,],
-       points(
-         r_squared,
-         cover,
-         pch = rep(pchs[i+1], 4),
-         col = "grey",
-         type = "p"
        ))
 }
 axis(
@@ -978,7 +969,7 @@ axis(
   labels = seq(from = 0, to = 0.8, by = 0.2),
   las = 1
 )
-mtext("R-Squared",
+mtext("Pseudo R-Squared (Nagelkerke)",
       side = 1,
       line = 3,
       cex = 0.75)
