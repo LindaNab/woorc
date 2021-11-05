@@ -11,7 +11,8 @@ perform_mecor(data)
 }
 \value{
 numeric vector with the coefficient of the corrected analysis, the
-standard error of the estimated coefficient and the confidence interval based
+standard error of the estimated coefficient (delta) and associated confidence interval,
+the standard error of the estimated coefficient (bootstrap) and the confidence interval based
 on the bootstrap
 }
 \description{

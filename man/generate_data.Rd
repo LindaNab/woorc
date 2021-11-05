@@ -4,36 +4,19 @@
 \alias{generate_data}
 \title{Generate data for simulation study}
 \usage{
-generate_data(
-  seed_no,
-  nobs,
-  gamma,
-  omega_sq,
-  nrep = 3,
-  tau_sq,
-  sigma_sq,
-  beta = 0.2
-)
+generate_data(seed_no, nobs, tau_sq, beta = 3)
 }
 \arguments{
 \item{seed_no}{seed no. used to generate data}
 
 \item{nobs}{number of observations}
 
-\item{gamma}{Cov(X,Z) / Var(X)}
-
-\item{omega_sq}{Var(X|Z)}
-
-\item{nrep}{number of replicates of X_star (defaults to 3)}
-
 \item{tau_sq}{extra variance due to measurement error in error-prone measure X_star}
 
-\item{sigma_sq}{Var(Y|X,Z)}
-
-\item{beta}{estimand, defaults to 0.2}
+\item{beta}{estimand, defaults to 3}
 }
 \value{
-Data.frame with variables Z, X, X_star_1, ..., X_star_nrep and Y
+Data.frame with variables X, X_star and Y
 }
 \description{
 Generate data for simulation study

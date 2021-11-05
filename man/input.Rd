@@ -9,30 +9,22 @@ A data frame with 23 rows and 10 variables:
 \describe{
   \item{scen_no}{scenario no.}
   \item{nobs}{number of observations (sample size)}
-  \item{gamma}{\eqn{\gamma}}
-  \item{omega_sq}{\eqn{\omega^2}}
-  \item{nrep}{number of replicates}
   \item{tau_sq}{\eqn{\tau^2}}
-  \item{sigma_sq}{\eqn{\sigma^2}}
   \item{beta}{estimand}
-  \item{reliability}{Var(blood_pressure) / Var(blood_pressure_star)}
-  \item{r_squared}{1 - Var(creatinine|blood_pressure, age) / Var(creatinine)}
-  \item{attenuation}{Var(blood_pressure|age) / Var(blood_pressure_star|age)}
-  \item{confounding}{0.2 E[age|blood_pressure]}
+  \item{reliability}{Var(active_energy_expenditure) / Var(active_energy_expenditure_star)}
 }
 }
 \usage{
 input
 }
 \description{
-A dataset containing the 23 scenarios that are used to input the simulation
+A dataset containing the 48 scenarios that are used to input the simulation
 study. The data generating mechanisms used in this study are:\cr
-age ~ N(32, 25) \cr
-blood_pressure|age ~ N(120 + \eqn{\gamma} age, \eqn{\omega^2}) \cr
-blood_pressure_star|blood_pressure ~ N(blood_pressure, \eqn{\tau^2}) \cr
-creatinine|blood_pressure,age ~ N(30 + 0.2 blood_pressure + 0.2 age, \eqn{\sigma^2})
+active_energy_expenditure ~ N(1, 0.25) \cr
+active_energy_expenditure_star|active_energy_expenditure ~ N(active_energy_expenditure, \eqn{\tau^2}) \cr \cr
+perc_lean_bm ~ N(80 + beta * active_energy_expenditure, 5)
 }
 \examples{
-data("input", package = "simexvsmecor")
+data("input", package = "woorc")
 }
 \keyword{datasets}

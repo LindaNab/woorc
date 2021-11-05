@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis.R
 \name{get_r_squared}
 \alias{get_r_squared}
-\title{Get R-squared of the outcome model (Y ~ X + Z)}
+\title{Get R-squared of the outcome model (Y ~ X)}
 \usage{
 get_r_squared(data)
 }
@@ -13,5 +13,5 @@ get_r_squared(data)
 named vector with r_squared, the r squared of the outcome model
 }
 \description{
-Get R-squared of the outcome model (Y ~ X + Z)
+Get R-squared of the outcome model (Y ~ X)
 }

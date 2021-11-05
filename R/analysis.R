@@ -4,7 +4,7 @@
 #' @return numeric vector with the coefficient of the uncorrected analysis, the
 #' standard error of the estimated coefficient and the confidence interval
 perform_uncor <- function(data){
-  uncor_fit <- lm(Y ~ X_star_1 + Z,
+  uncor_fit <- lm(Y ~ X_star,
                   data = data)
   effect <- coef(uncor_fit)[2]
   se <- summary(uncor_fit)$coefficients[2, 2]
@@ -20,55 +20,31 @@ perform_uncor <- function(data){
 #'
 #' @param data data to be used
 #' @return numeric vector with the coefficient of the corrected analysis, the
-#' standard error of the estimated coefficient and the confidence interval based
+#' standard error of the estimated coefficient (delta) and associated confidence interval,
+#' the standard error of the estimated coefficient (bootstrap) and the confidence interval based
 #' on the bootstrap
 perform_mecor <- function(data){
-  cols_no_reps <- grep("X_star", colnames(data))
-  var <- mean(apply(data[, cols_no_reps],
-                    1,
-                    var))
   mecor_fit <- mecor::mecor(
-    Y ~ mecor::MeasErrorRandom(X_star_1,
-                               var) + Z,
+    Y ~ mecor::MeasError(X_star,
+                         reference = X),
     data = data,
     method = "standard",
     B = 999
   )
-  effect <- mecor_fit$corfit$coef[2]
-  se <- summary(mecor_fit)$c$coefficients[2, 2]
-  ci <-  summary(mecor_fit)$c$ci[2, 2:3]
-  names(ci) <- c("lower", "upper")
+  effect <- mecor_fit$corfit$coef["X"]
+  se_delta <- summary(mecor_fit)$c$coefficients["X", "SE"]
+  ci_delta <-  summary(mecor_fit)$c$ci["X", c("LCI", "UCI")]
+  names(ci_delta) <- c("lower", "upper")
+  se_btstrp <- summary(mecor_fit)$c$coefficients["X", "SE (btstr)"]
+  ci_btstrp <-  summary(mecor_fit)$c$ci["X", c("LCI (btstr)", "UCI (btstr)")]
+  names(ci_btstrp) <- c("lower", "upper")
   return(c(
-    effect = unname(effect),
-    se = se,
-    ci = ci
-  ))
-}
-#' Perform measurement error correction by means of simex
-#'
-#' @param data data to be used
-#' @return numeric vector with the coefficient of the corrected analysis, the
-#' standard error of the estimated coefficient and the confidence interval based
-#' on the jackknife variance component in simex
-perform_simex <- function(data){
-  cols_no_reps <- grep("X_star", colnames(data))
-  naive_fit <- lm(Y ~ X_star_1 + Z,
-                  data = data,
-                  x = TRUE)
-  var <- mean(apply(data[, cols_no_reps],
-                    1,
-                    var))
-  simex_fit <- simex::simex(naive_fit,
-                            "X_star_1",
-                            measurement.error = sqrt(var))
-  effect <- simex_fit$coefficients[2]
-  se <- sqrt(simex_fit$variance.jackknife[2, 2])
-  ci <- effect + c(qnorm(0.025), qnorm(0.975)) * se
-  names(ci) <- c("lower", "upper")
-  return(c(
-    effect = unname(effect),
-    se = se,
-    ci = ci
+    effect_delta = unname(effect),
+    se_delta = se_delta,
+    ci_delta = ci_delta,
+    effect_btstr = unname(effect), # for ease of creation of summary of sim study
+    se_btstrp = se_btstrp,
+    ci_btstrp = ci_btstrp
   ))
 }
 #' Get the estimated effect of the three different analyses
@@ -81,18 +57,16 @@ perform_simex <- function(data){
 get_est_effects <- function(data){
   effect_uncor <- perform_uncor(data)
   effect_mecor <- perform_mecor(data)
-  effect_simex <- perform_simex(data)
   effects <- c(uncor = effect_uncor,
-               mecor = effect_mecor,
-               simex = effect_simex)
+               mecor = effect_mecor)
   return(effects)
 }
-#' Get R-squared of the outcome model (Y ~ X + Z)
+#' Get R-squared of the outcome model (Y ~ X)
 #'
 #' @param data data used to estimate R-squared
 #' @return named vector with r_squared, the r squared of the outcome model
 get_r_squared <- function(data){
-  cor_fit <- lm(Y ~ X + Z,
+  cor_fit <- lm(Y ~ X,
                 data = data)
   r_squared <- summary(cor_fit)$r.squared
 }
