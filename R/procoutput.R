@@ -62,12 +62,12 @@ reshape_output <- function(output_one_par,
                            v.names){
   out <- stats::reshape(
     output_one_par,
-    varying = paste0(c("uncor.", "mecor.", "simex."), v.names),
+    varying = paste0(c("uncor.", "mecor.delta.", "mecor.btstrp."), v.names),
     direction = "long",
     v.names = v.names,
     idvar = "id",
     timevar = "method",
-    times = c("uncor", "mecor", "simex")
+    times = c("uncor", "mecor.delta", "mecor.btstrp")
   )
   rownames(out) <- 1:nrow(out)
   return(out)

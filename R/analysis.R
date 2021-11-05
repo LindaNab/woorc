@@ -39,12 +39,12 @@ perform_mecor <- function(data){
   ci_btstrp <-  summary(mecor_fit)$c$ci["X", c("LCI (btstr)", "UCI (btstr)")]
   names(ci_btstrp) <- c("lower", "upper")
   return(c(
-    effect_delta = unname(effect),
-    se_delta = se_delta,
-    ci_delta = ci_delta,
-    effect_btstr = unname(effect), # for ease of creation of summary of sim study
-    se_btstrp = se_btstrp,
-    ci_btstrp = ci_btstrp
+    delta.effect = unname(effect),
+    delta.se = se_delta,
+    delta.ci = ci_delta,
+    btstrp.effect = unname(effect), # for ease of creation of summary of sim study
+    btstrp.se = se_btstrp,
+    btstrp.ci = ci_btstrp
   ))
 }
 #' Get the estimated effect of the three different analyses
@@ -59,7 +59,7 @@ get_est_effects <- function(data){
   effect_mecor <- perform_mecor(data)
   effects <- c(uncor = effect_uncor,
                mecor = effect_mecor)
-  return(effects)
+  ereturn(effects)
 }
 #' Get R-squared of the outcome model (Y ~ X)
 #'
