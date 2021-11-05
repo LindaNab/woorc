@@ -1,5 +1,5 @@
 #############################################################
-## INPUT SCRIPTS USED FOR THE R PACKAGE SIMEXVSMECOR
+## INPUT SCRIPTS USED FOR THE R PACKAGE WOORC
 ##
 ## This script creates the .rds files containing the output of
 ## the sim study that ran using run_sim()
@@ -9,7 +9,7 @@
 ##############################
 # 0 - Load librairies --------
 ##############################
-library(simexvsmecor)
+library(woorc)
 
 ##############################
 # 1 - Run sim study using bash
