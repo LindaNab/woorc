@@ -59,7 +59,7 @@ get_est_effects <- function(data){
   effect_mecor <- perform_mecor(data)
   effects <- c(uncor = effect_uncor,
                mecor = effect_mecor)
-  ereturn(effects)
+  return(effects)
 }
 #' Get R-squared of the outcome model (Y ~ X)
 #'
