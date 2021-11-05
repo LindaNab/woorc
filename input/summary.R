@@ -13,8 +13,8 @@
 ##############################
 # 1 - Create data.frame summary
 ##############################
-process_output(1:23)
-summary <- summarise_sim(1:23,
+process_output(1)
+summary <- summarise_sim(1,
                          use_input = input,
                          processed_dir = "./output/processed/")
 

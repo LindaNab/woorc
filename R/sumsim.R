@@ -33,7 +33,7 @@ init_summary <- function(scen_nos,
   colnames(summary_eval_param)[length(eval_param) + 1] <- "r_squared_est"
   # for all scen_nos, 3 methods are used
   summary <- expand.grid(scen_no = scen_nos,
-                         method = c("uncor", "mecor", "simex"))
+                         method = c("uncor", "mecor.delta", "mecor.btstrp"))
   summary <- dplyr::left_join(summary,
                               input,
                               by = "scen_no")
@@ -93,7 +93,7 @@ summarise_one_scen_no <- function(summary,
                             x = TRUE)
   # stats contains the params that will be pulled from the simsum object
   stats <- eval_param_rsimsum()[- grep("_mcse", eval_param_rsimsum())]
-  methods <- c("uncor", "mecor", "simex")
+  methods <- c("uncor", "mecor.delta", "mecor.btstrp")
   for(i in 1:NROW(stats)){
     for (j in seq_along(methods)){
       summary <- fill_stat_and_mcse(summary,
