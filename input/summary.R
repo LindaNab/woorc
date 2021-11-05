@@ -1,8 +1,7 @@
 #############################################################
-## INPUT SCRIPTS USED FOR THE R PACKAGE SIMEXVSMECOR
+## INPUT SCRIPTS USED FOR THE R PACKAGE WOORC
 ##
-## This script creates the data.frame that is available via data(summary) and
-## the data.frame that is available via data(summar_perrier)
+## This script creates the data.frame that is available via data(summary)
 ## lindanab4@gmail.com - 20210322
 #############################################################
 
@@ -13,8 +12,8 @@
 ##############################
 # 1 - Create data.frame summary
 ##############################
-process_output(1)
-summary <- summarise_sim(1,
+process_output(1:48)
+summary <- summarise_sim(1:48,
                          use_input = input,
                          processed_dir = "./output/processed/")
 
@@ -22,32 +21,3 @@ summary <- summarise_sim(1,
 # 2 - Add summary to package ---
 ##############################
 usethis::use_data(summary, overwrite = TRUE)
-
-##############################
-# 1 - Create data.frame summary_perrier
-##############################
-process_output(scen_nos = 1:7, output_dir = "./output/perrier/perrier_",
-               processed_dir = "./output/perrier/processed/")
-summary_perrier <- summarise_sim(scen_nos = 1:7,
-                                 use_input = input_perrier,
-                                 processed_dir = "./output/perrier/processed/")
-
-##############################
-# 2 - Add summary_perrier to package
-##############################
-usethis::use_data(summary_perrier, overwrite = TRUE)
-
-##############################
-# 1 - Create data.frame summary_logreg
-##############################
-process_output(1:23,
-               output_dir = "./output/logreg_",
-               processed_dir = "./output/processed/logreg_")
-summary_logreg <- summarise_sim(1:23,
-                                use_input = input_logreg,
-                                processed_dir = "./output/processed/logreg_")
-
-##############################
-# 2 - Add summary_logreg to package
-##############################
-usethis::use_data(summary_logreg, overwrite = TRUE)

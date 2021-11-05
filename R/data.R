@@ -19,10 +19,10 @@
 "input"
 #' #' Summary of Simulation Study
 #' #'
-#' #' A dataset containing a summary of the results from the 23 scenarios x 3
-#' #' methods (= 69)
+#' #' A dataset containing a summary of the results from the 48 scenarios x 3
+#' #' methods (= 144)
 #' #'
-#' #' @format A data frame with 69 rows and 27 variables:
+#' #' @format A data frame with 144 rows and 19 variables:
 #' #' \describe{
 #' #'   \item{scen_no}{scenario no.}
 #' #'   \item{nobs}{number of observations (sample size)}
@@ -45,5 +45,5 @@
 #' #'   \item{perc_bias}{percentage bias}
 #' #' }
 #' #' @examples
-#' #' data("summary", package = "simexvsmecor")
+#' #' data("summary", package = "woorc")
 #' "summary"
