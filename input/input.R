@@ -12,7 +12,7 @@
 ##############################
 # 1 - Create data.frame input-
 ##############################
-input <- data.frame(matrix(nrow = 4 * 12, ncol = 5))
+input <- data.frame(matrix(nrow = 5 * 12, ncol = 5))
 colnames(input) <- c("scen_no",
                      "nobs", # input param generate_data()
                      "tau_sq", # input param generate_data()
@@ -20,7 +20,7 @@ colnames(input) <- c("scen_no",
                      "reliability") # calculated from param
 input$scen_no <- 1:NROW(input)
 input$beta <- 3
-nobs <- c(300, 150, 600, 50)
+nobs <- c(300, 150, 600, 50, 25)
 reliability <- c(0.99, 0.95, seq(from = 0.8, to = 0.1, by = -0.1), 0.05, 0.01)
 rel_nobs <- expand.grid(reliability = reliability, nobs = nobs)
 input[, c("nobs", "reliability")] <- rel_nobs[, c("nobs", "reliability")]
