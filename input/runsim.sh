@@ -6,7 +6,7 @@
 #SBATCH --time=100:00:00                # Time limit
 #SBATCH --nodes=1                       # Number of nodes
 #SBATCH --ntasks-per-node=1             # MPI processes per node
-#SBATCH --array=49-60
+#SBATCH --array=1-60
 
 # Read in scenario number
 scenario=${SLURM_ARRAY_TASK_ID}
