@@ -20,7 +20,7 @@ colnames(input) <- c("scen_no",
                      "reliability") # calculated from param
 input$scen_no <- 1:NROW(input)
 input$beta <- 3
-nobs <- c(300, 150, 600, 1200)
+nobs <- c(300, 150, 600, 50)
 reliability <- c(0.99, 0.95, seq(from = 0.8, to = 0.1, by = -0.1), 0.05, 0.01)
 rel_nobs <- expand.grid(reliability = reliability, nobs = nobs)
 input[, c("nobs", "reliability")] <- rel_nobs[, c("nobs", "reliability")]
