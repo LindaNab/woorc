@@ -10,8 +10,8 @@
 #' estimated R-squared of the outcome model and the seed no.
 #' @export
 run_sim <- function(nrep,
-                    scen_no,
                     type,
+                    scen_no,
                     output_file_loc = "./"){
   if (type == "biasvsvar"){
     input <- input_biasvsvar
@@ -22,7 +22,7 @@ run_sim <- function(nrep,
     for (i in 1:nrep) {
       seed_no <- sample(1:1e6, 1)
       cat("\f")
-      print(paste0("Scen #", scen_no, " Run #", i, " with seed: ", seed_no))
+      print(paste0("Type ", type, " Scen #", scen_no, " Run #", i, " with seed: ", seed_no))
       data <- generate_data_scen_no(input,
                                     seed_no,
                                     scen_no)
