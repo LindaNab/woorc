@@ -5,7 +5,7 @@
 \title{Generate data of a specific scenario number specified in input data available
 in the package}
 \usage{
-generate_data_scen_no(seed_no, scen_no)
+generate_data_scen_no(input, seed_no, scen_no)
 }
 \arguments{
 \item{seed_no}{seed no. used to generate data}

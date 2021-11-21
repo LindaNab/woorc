@@ -4,7 +4,7 @@
 \alias{generate_data}
 \title{Generate data for simulation study}
 \usage{
-generate_data(seed_no, nobs, tau_sq, beta = 3)
+generate_data(seed_no, nobs, tau_sq, sigma_sq = 5, beta = 3)
 }
 \arguments{
 \item{seed_no}{seed no. used to generate data}
@@ -12,6 +12,8 @@ generate_data(seed_no, nobs, tau_sq, beta = 3)
 \item{nobs}{number of observations}
 
 \item{tau_sq}{extra variance due to measurement error in error-prone measure X_star}
+
+\item{sigma_sq}{variance of the residual errors of the outcome model, defaults to 5}
 
 \item{beta}{estimand, defaults to 3}
 }

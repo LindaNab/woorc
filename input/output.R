@@ -16,10 +16,11 @@ library(woorc)
 ##############################
 args <- commandArgs(trailingOnly = TRUE)
 arg1 <- as.numeric(args[1]) # nrep
-arg2 <- as.numeric(args[2]) # scen_no
-arg3 <- args[3] # location of output directory where .rds files should be saved
-# print(paste0("arg1: ", arg1, ", arg2: ", arg2, ", arg3: ", arg3))
-system.time(run_sim(arg1, arg2, arg3))
+arg2 <- as.character(args[2]) # type (biasvsvar or lowrel)
+arg3 <- as.numeric(args[3]) # scen_no
+arg4 <- args[4] # location of output directory where .rds files should be saved
+# print(paste0("arg1: ", arg1, ", arg2: ", arg2, ", arg3: ", arg3, ", arg4: ", arg4))
+system.time(run_sim(arg1, arg2, arg3, arg4))
 
 ##############################
 # 2 - Run sim study in R
