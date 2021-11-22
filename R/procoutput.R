@@ -1,5 +1,6 @@
 #' Tidy output of simulation study
 #'
+#' @param type simulation study type (either biasvsvar or lowrel)
 #' @param scen_nos scen no.'s that should be tidied up/ processed
 #' @param output_dir directory where raw output files are to be found, defaults
 #' to "./output/". Here, files named 'scen_no#' should be located
@@ -9,14 +10,15 @@
 #' processed_dir with the tidy output of the sim study in long format
 #'
 #' @export
-process_output <- function(scen_nos,
+process_output <- function(type,
+                           scen_nos,
                            output_dir = "./output/",
                            processed_dir = "./output/processed/") {
   for (i in seq_along(scen_nos)) {
     processed_output <- make_output_long(scen_nos[i],
-                                         output_dir)
+                                         paste0(output_dir, type, "_"))
     saveRDS(processed_output,
-            paste0(processed_dir, "scen_no", i, ".Rds"))
+            paste0(processed_dir, type, "_scen_no", i, ".Rds"))
   }
 }
 #' Reshape the output of the simulation study to long format

@@ -5,12 +5,15 @@
 \title{Tidy output of simulation study}
 \usage{
 process_output(
+  type,
   scen_nos,
   output_dir = "./output/",
   processed_dir = "./output/processed/"
 )
 }
 \arguments{
+\item{type}{simulation study type (either biasvsvar or lowrel)}
+
 \item{scen_nos}{scen no.'s that should be tidied up/ processed}
 
 \item{output_dir}{directory where raw output files are to be found, defaults

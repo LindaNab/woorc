@@ -4,14 +4,14 @@
 \alias{run_sim}
 \title{Run simulation study}
 \usage{
-run_sim(nrep, scen_no, type, output_file_loc = "./")
+run_sim(nrep, type, scen_no, output_file_loc = "./")
 }
 \arguments{
 \item{nrep}{number of replications}
 
-\item{scen_no}{scenarios numbers to be used}
-
 \item{type}{simulation study type, either "biasvsvar" or "lowrel"}
+
+\item{scen_no}{scenarios numbers to be used}
 
 \item{output_file_loc}{directory where output of simulation will be saved}
 }
