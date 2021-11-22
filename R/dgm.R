@@ -12,7 +12,7 @@ generate_data <- function(seed_no,
                           sigma_sq = 5,
                           beta = 3){
   set.seed(seed_no)
-  X <- rnorm(n = nobs, mean = 1, sd = sqrt(0.35))
+  X <- rnorm(n = nobs, mean = 1, sd = sqrt(0.25))
   X_star <- X + rnorm(n = nobs, mean = 0, sd = sqrt(tau_sq))
   Y <- 80 + beta * X + rnorm(n = nobs, mean = 0, sd = sqrt(sigma_sq))
   df <- cbind.data.frame(X, X_star, Y)
