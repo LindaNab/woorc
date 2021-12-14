@@ -69,7 +69,9 @@ plot(   0,
         asp = 1
 )
 with(data, points(MET_kcal_day_1000,
-           AEE_1000))
+           AEE_1000,
+           col = rgb(0, 0, 0, maxColorValue = 1, alpha = 0.5),
+           pch = 16))
 axis(
   1,
   at = seq(from = 0, to = 6, by = 1),
